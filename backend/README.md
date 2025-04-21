@@ -29,10 +29,10 @@ Această aplicație backend oferă:
     /services
     /middleware
     /models
-    app.js
-    server.js
+    index.ts
   prisma/
     schema.prisma
   README.md
   package.json
   .env
+```
