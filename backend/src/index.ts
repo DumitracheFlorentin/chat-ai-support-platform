@@ -4,6 +4,7 @@ import dotenv from 'dotenv'
 import prisma from './lib/prisma'
 
 import productRoutes from './routes/products.routes'
+import chatRoutes from './routes/chat.routes'
 
 dotenv.config()
 
@@ -25,6 +26,7 @@ app.get('/', async (req, res) => {
 
 // Mount products API
 app.use('/api/v1/products', productRoutes)
+app.use('/api/v1/chat', chatRoutes)
 
 const PORT = process.env.PORT || 5000
 
