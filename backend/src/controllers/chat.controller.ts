@@ -1,5 +1,5 @@
 import { Request, Response } from 'express'
-import { askOpenAI } from '../services/chat.service'
+import { askWithContext } from '../services/chat.service'
 
 export async function chatWithAI(req: Request, res: Response) {
   try {
@@ -12,8 +12,7 @@ export async function chatWithAI(req: Request, res: Response) {
       return
     }
 
-    const answer = await askOpenAI(question)
-
+    const answer = await askWithContext(question)
     res.status(200).json({ success: true, answer })
   } catch (error) {
     console.error('Error in chatWithAI:', error)
