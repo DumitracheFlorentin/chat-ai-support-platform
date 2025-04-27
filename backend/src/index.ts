@@ -3,8 +3,12 @@ import dotenv from 'dotenv'
 import cors from 'cors'
 
 import productRoutes from './routes/products.routes'
+import apiKeysRoutes from './routes/apiKeys.routes'
 import chatRoutes from './routes/chat.routes'
 import prisma from './lib/prisma'
+
+import { rateLimiter } from './middlewares/rateLimiter.middleware'
+import { apiKeyAuth } from './middlewares/apiKey.middleware'
 
 dotenv.config()
 
@@ -12,6 +16,7 @@ const app = express()
 
 app.use(cors())
 app.use(express.json())
+app.use(express.urlencoded({ extended: true }))
 
 app.get('/', async (req, res) => {
   try {
@@ -23,8 +28,9 @@ app.get('/', async (req, res) => {
   }
 })
 
-app.use('/api/v1/products', productRoutes)
-app.use('/api/v1/chat', chatRoutes)
+app.use('/api/v1/products', apiKeyAuth, rateLimiter, productRoutes)
+app.use('/api/v1/api-keys', rateLimiter, apiKeysRoutes)
+app.use('/api/v1/chat', apiKeyAuth, rateLimiter, chatRoutes)
 
 const PORT = process.env.PORT || 5000
 

@@ -1,5 +1,6 @@
 {
   "compilerOptions": {
+    "isolatedModules": true,
     "target": "es6",
     "module": "commonjs",
     "rootDir": "./src",
