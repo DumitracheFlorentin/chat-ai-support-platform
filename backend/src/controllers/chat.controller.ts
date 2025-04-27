@@ -1,5 +1,6 @@
 import { Request, Response } from 'express'
-import { askWithContext } from '../services/chat.service'
+
+import * as chatService from '../services/chat.service'
 
 export async function chatWithAI(req: Request, res: Response) {
   try {
@@ -12,7 +13,7 @@ export async function chatWithAI(req: Request, res: Response) {
       return
     }
 
-    const answer = await askWithContext(question)
+    const answer = await chatService.askWithContext(question)
     res.status(200).json({ success: true, answer })
   } catch (error) {
     console.error('Error in chatWithAI:', error)

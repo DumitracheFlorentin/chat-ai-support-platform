@@ -1,13 +1,12 @@
 import { Request, Response } from 'express'
+
+import * as productsInterfaces from '../interfaces/products.interfaces'
 import * as productsServices from '../services/products.service'
-import {
-  CreateProductDTO,
-  UpdateProductDTO,
-} from '../interfaces/products.interfaces'
 
 export async function createProduct(req: Request, res: Response) {
   try {
-    const { name, description, price } = req.body as CreateProductDTO
+    const { name, description, price } =
+      req.body as productsInterfaces.CreateProductDTO
 
     const product = await productsServices.createProduct({
       name,
@@ -52,7 +51,7 @@ export async function getProductById(req: Request, res: Response) {
 export async function updateProduct(req: Request, res: Response) {
   try {
     const { id } = req.params
-    const data = req.body as UpdateProductDTO
+    const data = req.body as productsInterfaces.UpdateProductDTO
 
     const updatedProduct = await productsServices.updateProduct(
       Number(id),
