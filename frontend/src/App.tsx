@@ -1,27 +1,21 @@
-import { useEffect } from 'react'
-import api from './services/api'
+import { Routes, Route, Navigate } from 'react-router-dom'
 
-export default function App() {
-  async function fetchProducts() {
-    const response = await api.get('/products')
-    return response.data
-  }
+import Layout from './components/Layout'
+import Products from './pages/Products'
+import ApiKeys from './pages/ApiKeys'
+import Chat from './pages/Chat'
 
-  useEffect(() => {
-    fetchProducts()
-      .then((data) => {
-        console.log('Products:', data)
-      })
-      .catch((error) => {
-        console.error('Error fetching products:', error)
-      })
-  }, [])
-
+function App() {
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-100">
-      <h1 className="text-3xl font-bold text-blue-600">
-        Hello Tailwind v3 + React + Vite!
-      </h1>
-    </div>
+    <Routes>
+      <Route path="/" element={<Layout />}>
+        <Route index element={<Navigate to="/products" replace />} />
+        <Route path="products" element={<Products />} />
+        <Route path="api-keys" element={<ApiKeys />} />
+        <Route path="chat" element={<Chat />} />
+      </Route>
+    </Routes>
   )
 }
+
+export default App
