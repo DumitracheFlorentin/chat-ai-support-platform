@@ -17,10 +17,11 @@ model Product {
 }
 
 model ApiKey {
-  id         Int      @id @default(autoincrement())
-  key        String   @unique
-  createdAt  DateTime @default(now())
-  expiresAt  DateTime
-  owner      String?
-  active     Boolean  @default(true)
+  id        Int      @id @default(autoincrement())
+  key       String   @unique
+  createdAt DateTime @default(now())
+  expiresAt DateTime
+  name      String
+  owner     String?
+  active    Boolean  @default(true)
 }
