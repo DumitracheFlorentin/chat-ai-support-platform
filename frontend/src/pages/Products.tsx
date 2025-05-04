@@ -2,7 +2,6 @@ import { useEffect, useState } from 'react'
 import api from '../services/api'
 
 export default function Products() {
-  // get all products
   const [products, setProducts] = useState<any[]>([])
   const [isLoading, setIsLoading] = useState<boolean>(true)
 
@@ -30,7 +29,7 @@ export default function Products() {
   }, [])
 
   return (
-    <div className="p-10 h-full">
+    <div className="py-10 h-full">
       <header className="flex justify-between items-center">
         <h1 className="text-3xl font-semibold">Products</h1>
       </header>

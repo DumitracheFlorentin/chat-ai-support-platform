@@ -8,12 +8,13 @@ export const createApiKey: RequestHandler = async function (req, res) {
 
     const apiKey = await apiKeysService.createApiKey(name, owner)
 
+    apiKey.key = apiKey.key.slice(0, 8) + '** ***** ***** *****'
+
     res.status(201).json({
       success: true,
       apiKey,
     })
   } catch (error) {
-    console.error('Error creating API Key:', error)
     res.status(500).json({ success: false, message: 'Internal Server Error' })
   }
 }
@@ -21,6 +22,10 @@ export const createApiKey: RequestHandler = async function (req, res) {
 export const getAllApiKeys: RequestHandler = async function (req, res) {
   try {
     const apiKeys = await apiKeysService.getAllApiKeys()
+
+    apiKeys.forEach((apiKey) => {
+      apiKey.key = apiKey.key.slice(0, 8) + '** ***** ***** *****'
+    })
 
     res.status(200).json({
       success: true,

@@ -1,7 +1,7 @@
 import { Routes, Route, Navigate } from 'react-router-dom'
 import { ToastContainer } from 'react-toastify'
 
-import Layout from './components/Layout'
+import Layout from './components/layout/Layout'
 import Products from './pages/Products'
 import ApiKeys from './pages/ApiKeys'
 import Chat from './pages/Chat'
@@ -17,6 +17,7 @@ function App() {
           <Route path="chat" element={<Chat />} />
         </Route>
       </Routes>
+
       <ToastContainer
         position="top-right"
         autoClose={5000}
