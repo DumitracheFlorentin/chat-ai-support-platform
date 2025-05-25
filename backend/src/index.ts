@@ -1,16 +1,13 @@
 import express from 'express'
 import dotenv from 'dotenv'
 import helmet from 'helmet'
-import cors from 'cors'
 
 import productRoutes from './routes/products.routes'
-import apiKeysRoutes from './routes/apiKeys.routes'
 import chatRoutes from './routes/chat.routes'
 import prisma from './lib/prisma'
 
 import { rateLimiter } from './middlewares/rateLimiter.middleware'
 import { corsMiddleware } from './middlewares/cors.middleware'
-import { apiKeyAuth } from './middlewares/apiKey.middleware'
 
 dotenv.config()
 
@@ -36,9 +33,8 @@ app.get('/internal/health', async (req, res) => {
   }
 })
 
-app.use('/api/v1/products', apiKeyAuth, rateLimiter, productRoutes)
-app.use('/api/v1/api-keys', rateLimiter, apiKeysRoutes)
-app.use('/api/v1/chat', apiKeyAuth, rateLimiter, chatRoutes)
+app.use('/api/v1/products', rateLimiter, productRoutes)
+app.use('/api/v1/chat', rateLimiter, chatRoutes)
 
 const PORT = process.env.PORT || 5000
 

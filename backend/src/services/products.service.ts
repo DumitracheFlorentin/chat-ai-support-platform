@@ -28,8 +28,19 @@ export async function createProduct(
   return product
 }
 
-export async function getAllProducts(): Promise<productsInterfaces.Product[]> {
-  return prisma.product.findMany()
+export async function getAllProducts(
+  limit: number,
+  skip: number
+): Promise<productsInterfaces.Product[]> {
+  return prisma.product.findMany({
+    skip,
+    take: limit,
+    orderBy: { createdAt: 'desc' },
+  })
+}
+
+export async function getTotalProductsCount(): Promise<number> {
+  return prisma.product.count()
 }
 
 export async function getProductById(
