@@ -9,7 +9,7 @@ function Layout() {
       <div className="container mx-auto flex flex-col w-full min-h-screen p-2.5 sm:p-5 max-w-7xl">
         <Navigation />
 
-        <main className="flex-grow flex flex-col my-5 h-full sm:px-10">
+        <main className="flex-grow flex flex-col my-5 h-full mx-4">
           <Outlet />
         </main>
 

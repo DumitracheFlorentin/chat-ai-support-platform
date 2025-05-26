@@ -14,9 +14,9 @@ export default function Navigation() {
 
   return (
     <nav className="flex items-center justify-between p-4">
-      <h1 className="text-lg text-gray-900 font-semibold">
+      <Link to="/" className="text-lg text-gray-900 font-semibold">
         Chat AI Support Platform
-      </h1>
+      </Link>
 
       <ul className="hidden sm:flex space-x-4 mt-2">
         <li>
@@ -29,6 +29,18 @@ export default function Navigation() {
             Dashboard
           </Link>
         </li>
+
+        <li>
+          <Link
+            to="/products"
+            className={`${
+              pathname === '/products' ? 'underline' : ''
+            } text-gray-800 text-lg`}
+          >
+            Products
+          </Link>
+        </li>
+
         <li>
           <Link
             to="/chat"
@@ -57,6 +69,19 @@ export default function Navigation() {
               Dashboard
             </Link>
           </div>
+
+          <div className="flex flex-col p-1">
+            <Link
+              to="/products"
+              className={`${
+                pathname === '/products' ? 'underline' : ''
+              } p-1 text-sm text-gray-800`}
+              onClick={() => setDropdownOpen(false)}
+            >
+              Products
+            </Link>
+          </div>
+
           <div className="flex flex-col p-1">
             <Link
               to="/chat"
