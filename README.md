@@ -90,3 +90,23 @@ The frontend should now be running on `http://localhost:5173`.
 - Make sure your Node version is exactly 22.x to avoid incompatibilities.
 - Remember to set up your `.env` files with appropriate credentials for database, OpenAI API, and vector DB (if used).
 - Prisma migrations are tracked in the `prisma/migrations` directory and should be committed to version control.
+
+---
+
+## 🧪 Demo
+
+Explore a preview of the AI-powered support dashboard and product management interface:
+
+### 📊 Dashboard Overview
+E-commerce chatbot performance, usage statistics, and feedback insights all in one place.
+
+![Dashboard Overview](https://github.com/user-attachments/assets/6fe3b750-b070-44d1-b528-c625185694d8)
+
+---
+
+### 🛍️ Product Management Table
+Easily view, edit, or delete products with live inline actions and sorting/filtering.
+
+![Product Table](https://github.com/user-attachments/assets/7ce0e034-5ad6-4de1-8f74-3cdc708ab2a5)
+
+
