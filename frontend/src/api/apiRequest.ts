@@ -23,8 +23,8 @@ async function apiRequest(
 
     const data = await response.json()
 
-    if (!response.ok) {
-      throw new Error(data.message || 'Something went wrong')
+    if (!data.success) {
+      throw new Error(data?.errors?.[0]?.message || 'Something went wrong')
     }
 
     return data

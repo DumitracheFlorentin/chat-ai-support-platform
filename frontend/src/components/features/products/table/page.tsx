@@ -41,6 +41,10 @@ export default function Table() {
   }
 
   return (
-    <DataTable columns={productColumns({ refetch: fetchData })} data={data} />
+    <DataTable
+      columns={productColumns({ refetch: fetchData })}
+      data={data}
+      refetch={fetchData}
+    />
   )
 }
