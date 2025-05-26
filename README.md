@@ -9,7 +9,6 @@ This project is a full-stack application designed for simulating and managing an
 - AI chatbot with multilingual support (via OpenAI API and LangChain)
 - Product report & management dashboard
 - Chat interface for simulating customer interactions
-- Feedback & rating collection after each chat
 - Thread-based chat session structure
 - Vector DB integration (e.g., Pinecone or Weaviate) for context memory
 
