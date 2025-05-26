@@ -93,3 +93,39 @@ export async function deleteProduct(req: Request, res: Response) {
     res.status(500).json({ success: false, message: 'Internal Server Error' })
   }
 }
+
+export async function getTotalProductsCount(req: Request, res: Response) {
+  try {
+    const total = await productsServices.getTotalProductsCount()
+    res.status(200).json({ success: true, total })
+  } catch (error) {
+    console.error('Error fetching total products count:', error)
+    res.status(500).json({ success: false, message: 'Internal Server Error' })
+  }
+}
+
+export async function getTotalProductsCountThisMonth(
+  req: Request,
+  res: Response
+) {
+  try {
+    const total = await productsServices.getTotalProductsCountThisMonth()
+    res.status(200).json({ success: true, total })
+  } catch (error) {
+    console.error('Error fetching total products count this month:', error)
+    res.status(500).json({ success: false, message: 'Internal Server Error' })
+  }
+}
+
+export async function getTotalProductsCountThisWeek(
+  req: Request,
+  res: Response
+) {
+  try {
+    const total = await productsServices.getTotalProductsCountThisWeek()
+    res.status(200).json({ success: true, total })
+  } catch (error) {
+    console.error('Error fetching total products count this week:', error)
+    res.status(500).json({ success: false, message: 'Internal Server Error' })
+  }
+}

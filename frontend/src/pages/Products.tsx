@@ -1,4 +1,4 @@
-import Table from '../components/features/products/table/page'
+import Table from '../components/features/products/page'
 
 export default function Products() {
   return (

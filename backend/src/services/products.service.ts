@@ -43,6 +43,34 @@ export async function getTotalProductsCount(): Promise<number> {
   return prisma.product.count()
 }
 
+export async function getTotalProductsCountThisMonth(): Promise<number> {
+  const startOfMonth = new Date(
+    new Date().getFullYear(),
+    new Date().getMonth(),
+    1
+  )
+  return prisma.product.count({
+    where: {
+      createdAt: {
+        gte: startOfMonth,
+      },
+    },
+  })
+}
+
+export async function getTotalProductsCountThisWeek(): Promise<number> {
+  const startOfWeek = new Date()
+  startOfWeek.setDate(startOfWeek.getDate() - startOfWeek.getDay())
+  startOfWeek.setHours(0, 0, 0, 0)
+  return prisma.product.count({
+    where: {
+      createdAt: {
+        gte: startOfWeek,
+      },
+    },
+  })
+}
+
 export async function getProductById(
   id: number
 ): Promise<productsInterfaces.Product | null> {
