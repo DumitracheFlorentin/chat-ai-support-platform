@@ -1,39 +1,25 @@
+import type { Chat, ChatMessage } from '@/types/chat'
 import { useState } from 'react'
+import { toast } from 'sonner'
+
+import { ScrollArea } from '@/components/ui/scroll-area'
+import { Card, CardHeader } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
-import { ScrollArea } from '@/components/ui/scroll-area'
-import { toast } from 'sonner'
+
 import apiRequest from '@/api/apiRequest'
-import { Card, CardHeader } from '@/components/ui/card'
-
-export interface ChatMessage {
-  id: string
-  role: 'user' | 'assistant'
-  content: string
-  createdAt: string
-}
-
-export interface Chat {
-  id: string
-  title: string
-  createdAt: string
-  updatedAt: string
-  messages: ChatMessage[]
-}
-
-interface Props {
-  selectedChat: Chat | null
-  setSelectedChat: (chat: Chat) => void
-  setChats: (chats: Chat[] | ((prev: Chat[]) => Chat[])) => void
-}
 
 export default function ChatWindow({
-  selectedChat,
   setSelectedChat,
+  selectedChat,
   setChats,
-}: Props) {
-  const [message, setMessage] = useState('')
+}: {
+  setChats: (chats: Chat[] | ((prev: Chat[]) => Chat[])) => void
+  setSelectedChat: (chat: Chat) => void
+  selectedChat: Chat | null
+}) {
   const [isSending, setIsSending] = useState(false)
+  const [message, setMessage] = useState('')
 
   const sendMessageHandler = async () => {
     if (!message.trim() || !selectedChat) return

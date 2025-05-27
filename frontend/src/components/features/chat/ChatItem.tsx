@@ -1,56 +1,40 @@
-import { Button } from '@/components/ui/button'
-import {
-  DropdownMenu,
-  DropdownMenuTrigger,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuSeparator,
-  DropdownMenuLabel,
-} from '@/components/ui/dropdown-menu'
 import { Ellipsis, Pencil, Trash } from 'lucide-react'
-import RenameDialog from './RenameDialog'
+import type { Chat } from '@/types/chat'
 import { useState } from 'react'
-import apiRequest from '@/api/apiRequest'
 import { toast } from 'sonner'
 
-export interface ChatMessage {
-  id: string
-  role: 'user' | 'assistant'
-  content: string
-  createdAt: string
-}
+import RenameDialog from './RenameDialog'
+import apiRequest from '@/api/apiRequest'
 
-export interface Chat {
-  id: string
-  title: string
-  createdAt: string
-  updatedAt: string
-  messages: ChatMessage[]
-}
-
-interface Props {
-  chat: Chat
-  isActive: boolean
-  setSelectedChat: (chat: Chat) => void
-  selectedChat?: Chat | null
-  setChats: React.Dispatch<React.SetStateAction<Chat[]>>
-  chats: Chat[]
-}
+import { Button } from '@/components/ui/button'
+import {
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+  DropdownMenuContent,
+  DropdownMenuLabel,
+  DropdownMenuItem,
+  DropdownMenu,
+} from '@/components/ui/dropdown-menu'
 
 export default function ChatItem({
-  chat,
-  isActive,
   setSelectedChat,
   selectedChat,
+  isActive,
   setChats,
-  chats,
-}: Props) {
+  chat,
+}: {
+  setChats: React.Dispatch<React.SetStateAction<Chat[]>>
+  setSelectedChat: (chat: Chat | null) => void
+  selectedChat?: Chat | null
+  isActive: boolean
+  chat: Chat
+}) {
   const [openRename, setOpenRename] = useState(false)
 
-  const removeChat = async () => {
+  const removeChatHandler = async () => {
     try {
       if (chat.id === selectedChat?.id) {
-        setSelectedChat(chats.filter((c) => c.id !== chat.id)?.[0])
+        setSelectedChat(null)
       }
 
       await apiRequest(`/chats/${chat.id}`, { method: 'DELETE' })
@@ -88,7 +72,10 @@ export default function ChatItem({
             >
               <Pencil className="mr-2 h-4 w-4" /> Rename
             </DropdownMenuItem>
-            <DropdownMenuItem onClick={removeChat} className="cursor-pointer">
+            <DropdownMenuItem
+              onClick={removeChatHandler}
+              className="cursor-pointer"
+            >
               <Trash className="mr-2 h-4 w-4" /> Delete
             </DropdownMenuItem>
           </DropdownMenuContent>

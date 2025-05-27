@@ -1,41 +1,27 @@
-import { Card, CardHeader } from '@/components/ui/card'
-import { ScrollArea } from '@/components/ui/scroll-area'
-import ChatItem from './ChatItem'
-import { Button } from '@/components/ui/button'
-import apiRequest from '@/api/apiRequest'
+import type { Chat } from '@/types/chat'
 import { toast } from 'sonner'
 
-export interface ChatMessage {
-  id: string
-  role: 'user' | 'assistant'
-  content: string
-  createdAt: string
-}
+import apiRequest from '@/api/apiRequest'
+import ChatItem from './ChatItem'
 
-export interface Chat {
-  id: string
-  title: string
-  createdAt: string
-  updatedAt: string
-  messages: ChatMessage[]
-}
-
-interface Props {
-  chats: Chat[]
-  selectedChat: Chat | null
-  setChats: React.Dispatch<React.SetStateAction<Chat[]>>
-  setSelectedChat: (chat: Chat | null) => void
-  reloadChats: () => void
-}
+import { ScrollArea } from '@/components/ui/scroll-area'
+import { Card, CardHeader } from '@/components/ui/card'
+import { Button } from '@/components/ui/button'
 
 export default function ChatSidebar({
-  chats,
-  selectedChat,
-  setChats,
   setSelectedChat,
+  selectedChat,
   reloadChats,
-}: Props) {
-  async function addNewChat() {
+  setChats,
+  chats,
+}: {
+  setChats: React.Dispatch<React.SetStateAction<Chat[]>>
+  setSelectedChat: (chat: Chat | null) => void
+  selectedChat: Chat | null
+  reloadChats: () => void
+  chats: Chat[]
+}) {
+  async function addChatHandler() {
     try {
       const res = await apiRequest('/chats', {
         method: 'POST',
@@ -63,7 +49,6 @@ export default function ChatSidebar({
                 setSelectedChat={setSelectedChat}
                 selectedChat={selectedChat}
                 setChats={setChats}
-                chats={chats}
               />
             ))}
           </div>
@@ -72,7 +57,7 @@ export default function ChatSidebar({
           <Button
             className="w-full cursor-pointer"
             variant="outline"
-            onClick={addNewChat}
+            onClick={addChatHandler}
           >
             + New Chat
           </Button>

@@ -1,51 +1,37 @@
-import {
-  Dialog,
-  DialogContent,
-  DialogHeader,
-  DialogTitle,
-  DialogDescription,
-  DialogFooter,
-} from '@/components/ui/dialog'
-import { Input } from '@/components/ui/input'
-import { Label } from '@/components/ui/label'
-import { Button } from '@/components/ui/button'
+import type { Chat } from '@/types/chat'
 import { useState } from 'react'
-import apiRequest from '@/api/apiRequest'
 import { toast } from 'sonner'
 
-export interface ChatMessage {
-  id: string
-  role: 'user' | 'assistant'
-  content: string
-  createdAt: string
-}
+import apiRequest from '@/api/apiRequest'
 
-export interface Chat {
-  id: string
-  title: string
-  createdAt: string
-  updatedAt: string
-  messages: ChatMessage[]
-}
-
-interface Props {
-  open: boolean
-  onOpenChange: (open: boolean) => void
-  chat: Chat
-  setChats: React.Dispatch<React.SetStateAction<Chat[]>>
-  setSelectedChat: (chat: Chat) => void
-}
+import { Button } from '@/components/ui/button'
+import { Input } from '@/components/ui/input'
+import { Label } from '@/components/ui/label'
+import {
+  DialogDescription,
+  DialogContent,
+  DialogHeader,
+  DialogFooter,
+  DialogTitle,
+  Dialog,
+} from '@/components/ui/dialog'
 
 export default function RenameDialog({
-  open,
-  onOpenChange,
-  chat,
-  setChats,
   setSelectedChat,
-}: Props) {
+  onOpenChange,
+  setChats,
+  open,
+  chat,
+}: {
+  setChats: React.Dispatch<React.SetStateAction<Chat[]>>
+  onOpenChange: (open: boolean) => void
+  setSelectedChat: (chat: Chat) => void
+  open: boolean
+  chat: Chat
+}) {
   const [title, setTitle] = useState(chat.title || '')
 
-  const handleRename = async () => {
+  const renameChatHandler = async () => {
     try {
       const response = await apiRequest(`/chats/${chat.id}`, {
         method: 'PUT',
@@ -87,7 +73,7 @@ export default function RenameDialog({
           </div>
         </div>
         <DialogFooter>
-          <Button onClick={handleRename}>Save</Button>
+          <Button onClick={renameChatHandler}>Save</Button>
         </DialogFooter>
       </DialogContent>
     </Dialog>
