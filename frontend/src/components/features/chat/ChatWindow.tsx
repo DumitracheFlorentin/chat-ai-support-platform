@@ -8,6 +8,8 @@ import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 
 import apiRequest from '@/api/apiRequest'
+import { ArrowDown } from 'lucide-react'
+import { Link } from 'react-router-dom'
 
 export default function ChatWindow({
   setSelectedChat,
@@ -18,7 +20,10 @@ export default function ChatWindow({
   setSelectedChat: (chat: Chat) => void
   selectedChat: Chat | null
 }) {
+  const scrollContainerRef = useRef<HTMLDivElement>(null)
   const messagesEndRef = useRef<HTMLDivElement>(null)
+
+  const [showScrollButton, setShowScrollButton] = useState(false)
   const [isSending, setIsSending] = useState(false)
   const [message, setMessage] = useState('')
 
@@ -38,7 +43,7 @@ export default function ChatWindow({
       )
 
       let newMessages: ChatMessage[] = [
-        ...selectedChat.messages,
+        ...(selectedChat?.messages || []),
         {
           id: questionMessage?.message?.id,
           role: 'user',
@@ -91,6 +96,23 @@ export default function ChatWindow({
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' })
   }
 
+  function handleScroll() {
+    const el = scrollContainerRef.current
+    if (!el) return
+
+    const nearBottom = el.scrollHeight - el.scrollTop - el.clientHeight < 100
+
+    setShowScrollButton(!nearBottom)
+  }
+
+  useEffect(() => {
+    const container = scrollContainerRef.current
+    if (!container) return
+
+    container.addEventListener('scroll', handleScroll)
+    return () => container.removeEventListener('scroll', handleScroll)
+  }, [])
+
   useEffect(() => {
     scrollToBottom()
   }, [selectedChat?.messages, selectedChat?.id])
@@ -110,22 +132,106 @@ export default function ChatWindow({
       </CardHeader>
 
       <ScrollArea className="flex-1 px-4 py-4 space-y-4">
-        <div className="flex flex-col gap-3 h-[30rem] overflow-y-auto">
-          {selectedChat?.messages?.map((msg) => (
-            <div
-              key={msg.id}
-              className={`max-w-[60%] px-4 py-2 rounded-lg mb-3 w-fit
-        ${
-          msg.role === 'user'
-            ? 'ml-auto bg-secondary text-right'
-            : 'mr-auto text-left'
-        }`}
-            >
-              {msg.content}
-            </div>
-          ))}
+        <div
+          ref={scrollContainerRef}
+          className="flex flex-col gap-3 h-[30rem] overflow-y-auto relative"
+        >
+          {selectedChat?.messages?.map((msg) => {
+            if (msg.role === 'user') {
+              return (
+                <div
+                  key={msg.id}
+                  className="max-w-[60%] px-4 py-2 rounded-lg mb-3 w-fit ml-auto bg-secondary text-right"
+                >
+                  {msg.content}
+                </div>
+              )
+            }
+
+            let content
+            try {
+              let raw = msg.content.trim()
+
+              if (raw.startsWith('```json')) {
+                raw = raw
+                  .replace(/^```json/, '')
+                  .replace(/```$/, '')
+                  .trim()
+              }
+
+              const products = JSON.parse(raw)
+
+              if (Array.isArray(products)) {
+                if (products.length === 0) {
+                  content = (
+                    <div className="text-muted-foreground">
+                      No products found
+                    </div>
+                  )
+                } else {
+                  content = (
+                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
+                      {products.map((product, i) => (
+                        <Link
+                          key={i}
+                          to={`https://www.emag.ro`}
+                          target="_blank"
+                          className="flex flex-col items-center gap-4 border rounded-lg p-4 bg-muted"
+                        >
+                          <img
+                            src={
+                              product.image === 'optional_url'
+                                ? '/placeholder.webp'
+                                : product.image
+                            }
+                            alt={product.name}
+                            className="w-full h-30 object-cover rounded-md"
+                          />
+                          <div className="flex justify-between gap-4 items-center w-full">
+                            <h3 className="text-sm font-medium">
+                              {product.name}
+                            </h3>
+                            <div className="font-medium text-sm text-green-600 whitespace-nowrap">
+                              {product.price} EUR
+                            </div>
+                          </div>
+                          <p className="text-xs text-muted-foreground">
+                            {product.description}
+                          </p>
+                        </Link>
+                      ))}
+                    </div>
+                  )
+                }
+              } else {
+                content = msg.content
+              }
+            } catch {
+              content = (
+                <div className="text-muted-foreground">No products found</div>
+              )
+            }
+
+            return (
+              <div
+                key={msg.id}
+                className="max-w-[95%] px-4 py-2 rounded-lg mb-3 w-fit mr-auto text-left"
+              >
+                {content}
+              </div>
+            )
+          })}
+
           <div ref={messagesEndRef} />
         </div>
+        {showScrollButton && (
+          <button
+            onClick={scrollToBottom}
+            className="cursor-pointer absolute bg-background bottom-4 left-1/2 transform -translate-x-1/2 border shadow-md px-3 py-1 rounded-lg text-sm hover:bg-muted transition-all"
+          >
+            <ArrowDown className="w-4 h-6 text-gray-600" />
+          </button>
+        )}
       </ScrollArea>
 
       <div className="p-4 border-t flex gap-2">

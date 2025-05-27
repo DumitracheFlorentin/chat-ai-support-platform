@@ -8,7 +8,7 @@ export async function askWithContext(question: string): Promise<string> {
 
   const queryResponse = await pineconeService.pineconeIndex.query({
     vector: embedding,
-    topK: 5,
+    topK: 100,
     includeMetadata: true,
   })
 
@@ -21,9 +21,9 @@ export async function askWithContext(question: string): Promise<string> {
         description: string
         price?: number
       }
-      return `Product: ${i + 1}: ${m.name} - ${m.description}${
-        m.price ? ` (price: ${m.price} RON)` : ''
-      }`
+      return `\n${i + 1}. 🛒 **${m.name}**
+- ${m.description}
+${m.price ? `- 💵 Price: ${m.price} RON` : ''}`
     })
     .join('\n')
 
@@ -38,7 +38,20 @@ export async function askWithContext(question: string): Promise<string> {
 
       Use a clear, concise, and friendly tone.
 
-      Product list:\n\n${context}`,
+      Respond with a JSON array of matched products with the format:
+      [
+        {
+          "name": "Product name",
+          "description": "Product description",
+          "price": 1234,
+          "image": "optional_url"
+        }
+      ]
+
+      Do NOT include any additional text outside the JSON. If no products match, return an empty array [].
+      Use only products from the provided context.
+
+      Context:\n\n${context}`,
     },
     {
       role: 'user',

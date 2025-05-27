@@ -3,6 +3,15 @@ import { Request, Response } from 'express'
 import * as messageService from '../services/messages.service'
 import * as chatService from '../services/chat.service'
 
+export async function getAllMessages(req: Request, res: Response) {
+  try {
+    const messages = await messageService.getAllMessages()
+    res.status(200).json({ success: true, count: messages.length, messages })
+  } catch (error) {
+    res.status(500).json({ success: false, message: 'Failed to load messages' })
+  }
+}
+
 export async function saveMessageByChatId(req: Request, res: Response) {
   try {
     const { id } = req.params

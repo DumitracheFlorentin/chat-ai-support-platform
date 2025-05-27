@@ -17,6 +17,12 @@ export default function Dashboard() {
     thisMonth: 0,
     thisWeek: 0,
   })
+
+  const [chatData, setChatData] = useState({
+    threads: 0,
+    messages: 0,
+  })
+
   const [loading, setLoading] = useState(true)
 
   async function fetchData() {
@@ -25,11 +31,20 @@ export default function Dashboard() {
         productsCountTotal,
         productsCountThisMonth,
         productsCountThisWeek,
+        chatsCountTotal,
+        chatsCountMessages,
       ] = await Promise.all([
         apiRequest('/products/count/total'),
         apiRequest('/products/count/this-month'),
         apiRequest('/products/count/this-week'),
+        apiRequest('/chats/count/total'),
+        apiRequest('/chats/count/messages'),
       ])
+
+      setChatData({
+        threads: chatsCountTotal?.chats?.length || 0,
+        messages: chatsCountMessages?.count,
+      })
 
       setProductData({
         total: productsCountTotal?.total,
@@ -117,19 +132,19 @@ export default function Dashboard() {
                 </CardDescription>
               </CardHeader>
               <CardContent>
-                <p className="text-2xl font-bold">1,234</p>
+                <p className="text-2xl font-bold">{chatData?.threads}</p>
               </CardContent>
             </Card>
 
             <Card className="w-full md:w-[375px]">
               <CardHeader>
-                <CardTitle>Average Messages per Thread</CardTitle>
+                <CardTitle>Messages</CardTitle>
                 <CardDescription>
-                  View average messages per thread.
+                  View total messages from all threads.
                 </CardDescription>
               </CardHeader>
               <CardContent>
-                <p className="text-2xl font-bold">1,234</p>
+                <p className="text-2xl font-bold">{chatData?.messages}</p>
               </CardContent>
             </Card>
           </div>

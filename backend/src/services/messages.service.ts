@@ -14,3 +14,11 @@ export async function saveMessage(
     },
   })
 }
+
+export async function getAllMessages() {
+  return prisma.message.findMany({
+    orderBy: {
+      createdAt: 'desc',
+    },
+  })
+}
