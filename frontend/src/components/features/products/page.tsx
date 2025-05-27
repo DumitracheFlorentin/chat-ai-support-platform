@@ -25,7 +25,6 @@ export default function Table() {
 
       setData(response?.data || [])
     } catch (error) {
-      console.error('Error fetching data:', error)
       setData([]) // Set to empty array on error
     } finally {
       setLoading(false)

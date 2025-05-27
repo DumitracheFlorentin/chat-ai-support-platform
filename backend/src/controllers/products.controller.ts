@@ -15,7 +15,6 @@ export async function createProduct(req: Request, res: Response) {
     })
     res.status(201).json({ success: true, data: product })
   } catch (error) {
-    console.error('Error creating product:', error)
     res.status(500).json({ success: false, message: 'Internal Server Error' })
   }
 }
@@ -41,7 +40,6 @@ export async function getAllProducts(req: Request, res: Response) {
       },
     })
   } catch (error) {
-    console.error('Error fetching products:', error)
     res.status(500).json({ success: false, message: 'Internal Server Error' })
   }
 }
@@ -59,7 +57,6 @@ export async function getProductById(req: Request, res: Response) {
 
     res.status(200).json({ success: true, data: product })
   } catch (error) {
-    console.error('Error fetching product:', error)
     res.status(500).json({ success: false, message: 'Internal Server Error' })
   }
 }
@@ -75,7 +72,6 @@ export async function updateProduct(req: Request, res: Response) {
     )
     res.status(200).json({ success: true, data: updatedProduct })
   } catch (error) {
-    console.error('Error updating product:', error)
     res.status(500).json({ success: false, message: 'Internal Server Error' })
   }
 }
@@ -89,7 +85,6 @@ export async function deleteProduct(req: Request, res: Response) {
       .status(200)
       .json({ success: true, message: 'Product deleted successfully' })
   } catch (error) {
-    console.error('Error deleting product:', error)
     res.status(500).json({ success: false, message: 'Internal Server Error' })
   }
 }
@@ -99,7 +94,6 @@ export async function getTotalProductsCount(req: Request, res: Response) {
     const total = await productsServices.getTotalProductsCount()
     res.status(200).json({ success: true, total })
   } catch (error) {
-    console.error('Error fetching total products count:', error)
     res.status(500).json({ success: false, message: 'Internal Server Error' })
   }
 }
@@ -112,7 +106,6 @@ export async function getTotalProductsCountThisMonth(
     const total = await productsServices.getTotalProductsCountThisMonth()
     res.status(200).json({ success: true, total })
   } catch (error) {
-    console.error('Error fetching total products count this month:', error)
     res.status(500).json({ success: false, message: 'Internal Server Error' })
   }
 }
@@ -125,7 +118,6 @@ export async function getTotalProductsCountThisWeek(
     const total = await productsServices.getTotalProductsCountThisWeek()
     res.status(200).json({ success: true, total })
   } catch (error) {
-    console.error('Error fetching total products count this week:', error)
     res.status(500).json({ success: false, message: 'Internal Server Error' })
   }
 }

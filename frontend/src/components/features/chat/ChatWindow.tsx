@@ -1,5 +1,5 @@
 import type { Chat, ChatMessage } from '@/types/chat'
-import { useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { toast } from 'sonner'
 
 import { ScrollArea } from '@/components/ui/scroll-area'
@@ -18,6 +18,7 @@ export default function ChatWindow({
   setSelectedChat: (chat: Chat) => void
   selectedChat: Chat | null
 }) {
+  const messagesEndRef = useRef<HTMLDivElement>(null)
   const [isSending, setIsSending] = useState(false)
   const [message, setMessage] = useState('')
 
@@ -26,29 +27,53 @@ export default function ChatWindow({
 
     try {
       setIsSending(true)
-      const res = await apiRequest(`/chats/${selectedChat.id}/messages`, {
-        method: 'POST',
-        body: JSON.stringify({ question: message }),
-        headers: { 'Content-Type': 'application/json' },
-      })
 
-      const newMessages: ChatMessage[] = [
+      const questionMessage = await apiRequest(
+        `/chats/${selectedChat.id}/messages/question`,
+        {
+          method: 'POST',
+          body: JSON.stringify({ question: message }),
+          headers: { 'Content-Type': 'application/json' },
+        }
+      )
+
+      let newMessages: ChatMessage[] = [
         ...selectedChat.messages,
         {
-          id: crypto.randomUUID(),
+          id: questionMessage?.message?.id,
           role: 'user',
           content: message,
-          createdAt: new Date().toISOString(),
-        },
-        {
-          id: crypto.randomUUID(),
-          role: 'assistant',
-          content: res.answer,
-          createdAt: new Date().toISOString(),
+          createdAt: questionMessage?.message?.createdAt,
         },
       ]
 
-      const updatedChat = { ...selectedChat, messages: newMessages }
+      let updatedChat = { ...selectedChat, messages: newMessages }
+
+      setSelectedChat(updatedChat)
+      setChats((prev: Chat[]) =>
+        prev.map((chat) => (chat.id === updatedChat.id ? updatedChat : chat))
+      )
+
+      const answerMessage = await apiRequest(
+        `/chats/${selectedChat.id}/messages`,
+        {
+          method: 'POST',
+          body: JSON.stringify({ question: message }),
+          headers: { 'Content-Type': 'application/json' },
+        }
+      )
+
+      newMessages = [
+        ...newMessages,
+        {
+          id: answerMessage?.answer?.id,
+          role: 'assistant',
+          content: answerMessage?.answer?.content,
+          createdAt: answerMessage?.answer?.createdAt,
+        },
+      ]
+
+      updatedChat = { ...selectedChat, messages: newMessages }
 
       setSelectedChat(updatedChat)
       setChats((prev: Chat[]) =>
@@ -61,6 +86,14 @@ export default function ChatWindow({
       setIsSending(false)
     }
   }
+
+  function scrollToBottom() {
+    messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' })
+  }
+
+  useEffect(() => {
+    scrollToBottom()
+  }, [selectedChat?.messages, selectedChat?.id])
 
   if (!selectedChat) {
     return (
@@ -76,19 +109,23 @@ export default function ChatWindow({
         {selectedChat.title || 'Chat'}
       </CardHeader>
 
-      <ScrollArea className="flex-1 space-y-4 px-4 py-4">
-        {selectedChat?.messages?.map((msg) => (
-          <div
-            key={msg.id}
-            className={`max-w-[70%] px-4 py-2 rounded-lg ${
-              msg.role === 'user'
-                ? 'bg-muted self-start text-left'
-                : 'bg-primary text-white self-end text-right ml-auto'
-            }`}
-          >
-            {msg.content}
-          </div>
-        ))}
+      <ScrollArea className="flex-1 px-4 py-4 space-y-4">
+        <div className="flex flex-col gap-3 h-[30rem] overflow-y-auto">
+          {selectedChat?.messages?.map((msg) => (
+            <div
+              key={msg.id}
+              className={`max-w-[60%] px-4 py-2 rounded-lg mb-3 w-fit
+        ${
+          msg.role === 'user'
+            ? 'ml-auto bg-secondary text-right'
+            : 'mr-auto text-left'
+        }`}
+            >
+              {msg.content}
+            </div>
+          ))}
+          <div ref={messagesEndRef} />
+        </div>
       </ScrollArea>
 
       <div className="p-4 border-t flex gap-2">

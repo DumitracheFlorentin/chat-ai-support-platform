@@ -58,6 +58,11 @@ export async function createChat(title: string) {
 export async function getAllChats() {
   return prisma.chat.findMany({
     orderBy: { createdAt: 'desc' },
+    include: {
+      messages: {
+        orderBy: { createdAt: 'asc' },
+      },
+    },
   })
 }
 

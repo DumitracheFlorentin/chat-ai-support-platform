@@ -28,7 +28,6 @@ app.get('/internal/health', async (req, res) => {
     await prisma.$connect()
     res.send('Database connected and API is running...')
   } catch (error) {
-    console.error('Database connection failed', error)
     res.status(500).send('Database connection failed')
   }
 })

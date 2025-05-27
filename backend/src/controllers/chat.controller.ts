@@ -1,6 +1,20 @@
 import { Request, Response } from 'express'
 
+import * as messageService from '../services/messages.service'
 import * as chatService from '../services/chat.service'
+
+export async function saveMessageByChatId(req: Request, res: Response) {
+  try {
+    const { id } = req.params
+    const { question } = req.body
+
+    const savedMessage = await messageService.saveMessage(id, 'user', question)
+
+    res.status(200).json({ success: true, message: savedMessage })
+  } catch (error) {
+    res.status(500).json({ success: false, message: 'Failed to save message' })
+  }
+}
 
 export async function createChat(req: Request, res: Response) {
   try {
@@ -42,9 +56,15 @@ export async function chatWithAI(req: Request, res: Response) {
     }
 
     const answer = await chatService.askWithContext(question)
-    res.status(200).json({ success: true, answer })
+
+    const savedAnswer = await messageService.saveMessage(
+      req.params.id,
+      'assistant',
+      answer
+    )
+
+    res.status(200).json({ success: true, answer: savedAnswer })
   } catch (error) {
-    console.error('Error in chatWithAI:', error)
     res
       .status(500)
       .json({ success: false, message: 'Failed to process question' })
