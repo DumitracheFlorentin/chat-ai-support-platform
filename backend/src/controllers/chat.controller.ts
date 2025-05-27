@@ -2,6 +2,34 @@ import { Request, Response } from 'express'
 
 import * as chatService from '../services/chat.service'
 
+export async function createChat(req: Request, res: Response) {
+  try {
+    const chat = await chatService.createChat(req.body.title)
+    res.status(201).json({ success: true, chat })
+  } catch (err) {
+    res.status(500).json({ success: false, message: 'Failed to create chat' })
+  }
+}
+
+export async function getMessagesByChatId(req: Request, res: Response) {
+  try {
+    const { id } = req.params
+    const messages = await chatService.getMessagesByChatId(id)
+    res.status(200).json({ success: true, messages })
+  } catch (err) {
+    res.status(500).json({ success: false, message: 'Failed to load messages' })
+  }
+}
+
+export async function getAllChats(req: Request, res: Response) {
+  try {
+    const chats = await chatService.getAllChats()
+    res.status(200).json({ success: true, chats })
+  } catch (err) {
+    res.status(500).json({ success: false, message: 'Failed to load chats' })
+  }
+}
+
 export async function chatWithAI(req: Request, res: Response) {
   try {
     const { question } = req.body
@@ -20,5 +48,36 @@ export async function chatWithAI(req: Request, res: Response) {
     res
       .status(500)
       .json({ success: false, message: 'Failed to process question' })
+  }
+}
+
+export async function deleteChatById(req: Request, res: Response) {
+  try {
+    const { id } = req.params
+    await chatService.deleteChatById(id)
+    res
+      .status(200)
+      .json({ success: true, message: 'Chat deleted successfully' })
+  } catch (err) {
+    res.status(500).json({ success: false, message: 'Failed to delete chat' })
+  }
+}
+
+export async function editTitleByChatId(req: Request, res: Response) {
+  try {
+    const { id } = req.params
+    const { newTitle } = req.body
+
+    if (!newTitle || typeof newTitle !== 'string') {
+      res
+        .status(400)
+        .json({ success: false, message: 'Invalid or missing "newTitle"' })
+      return
+    }
+
+    const updatedChat = await chatService.editTitleByChatId(id, newTitle)
+    res.status(200).json({ success: true, chat: updatedChat })
+  } catch (err) {
+    res.status(500).json({ success: false, message: 'Failed to update title' })
   }
 }

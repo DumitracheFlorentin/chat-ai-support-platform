@@ -166,7 +166,7 @@ export function DataTable<TData, TValue>({
 
         <Dialog open={openAdd} onOpenChange={setOpenAdd}>
           <DialogTrigger asChild>
-            <Button className="ml-2">Add Product</Button>
+            <Button className="ml-2 cursor-pointer">Add Product</Button>
           </DialogTrigger>
           <DialogContent>
             <DialogHeader>
@@ -215,11 +215,16 @@ export function DataTable<TData, TValue>({
                 <Button
                   type="button"
                   variant="secondary"
+                  className="cursor-pointer"
                   onClick={() => setOpenAdd(false)}
                 >
                   Cancel
                 </Button>
-                <Button type="submit" disabled={loading}>
+                <Button
+                  type="submit"
+                  className="cursor-pointer"
+                  disabled={loading}
+                >
                   {loading ? 'Adding...' : 'Add Product'}
                 </Button>
               </DialogFooter>

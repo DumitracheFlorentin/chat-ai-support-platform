@@ -15,3 +15,25 @@ model Product {
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
 }
+
+model Chat {
+  id          String     @id @default(cuid())
+  createdAt   DateTime   @default(now())
+  updatedAt   DateTime   @updatedAt
+  title       String?    
+  messages    Message[]
+}
+
+model Message {
+  id        String    @id @default(cuid())
+  createdAt DateTime  @default(now())
+  role      Role   
+  content   String
+  chatId    String
+  chat      Chat      @relation(fields: [chatId], references: [id])
+}
+
+enum Role {
+  user
+  assistant
+}

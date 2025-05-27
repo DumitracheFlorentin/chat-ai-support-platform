@@ -1,9 +1,19 @@
 import { Router } from 'express'
 
-import { chatWithAI } from '../controllers/chat.controller'
+import {
+  getMessagesByChatId,
+  editTitleByChatId,
+  deleteChatById,
+  getAllChats,
+  createChat,
+} from '../controllers/chat.controller'
 
 const router = Router()
 
-router.post('/', chatWithAI)
+router.get('/:id/messages', getMessagesByChatId)
+router.put('/:id', editTitleByChatId)
+router.delete('/:id', deleteChatById)
+router.post('/', createChat)
+router.get('/', getAllChats)
 
 export default router

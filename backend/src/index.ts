@@ -34,7 +34,7 @@ app.get('/internal/health', async (req, res) => {
 })
 
 app.use('/api/v1/products', rateLimiter, productRoutes)
-app.use('/api/v1/chat', rateLimiter, chatRoutes)
+app.use('/api/v1/chats', rateLimiter, chatRoutes)
 
 const PORT = process.env.PORT || 5000
 

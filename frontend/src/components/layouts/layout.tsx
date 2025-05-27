@@ -9,13 +9,13 @@ function Layout() {
       <div className="container mx-auto flex flex-col w-full min-h-screen p-2.5 sm:p-5 max-w-7xl">
         <Navigation />
 
-        <main className="flex-grow flex flex-col my-5 h-full mx-4">
+        <main className="flex flex-grow  flex-col my-5 h-full mx-4">
           <Outlet />
         </main>
 
         <p className="px-10 text-center text-xs text-gray-500">
           Copyright © {new Date().getFullYear()} Dumitrache Florentin-Cristian.
-          Toate drepturile rezervate!
+          All rights reserved.
         </p>
       </div>
 
