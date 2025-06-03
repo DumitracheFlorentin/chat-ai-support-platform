@@ -1,15 +1,23 @@
 import type { Chat, ChatMessage } from '@/types/chat'
 import { useEffect, useRef, useState } from 'react'
+import { ArrowDown } from 'lucide-react'
+import { Link } from 'react-router-dom'
 import { toast } from 'sonner'
+
+import apiRequest from '@/api/apiRequest'
 
 import { ScrollArea } from '@/components/ui/scroll-area'
 import { Card, CardHeader } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
-
-import apiRequest from '@/api/apiRequest'
-import { ArrowDown } from 'lucide-react'
-import { Link } from 'react-router-dom'
+import {
+  SelectContent,
+  SelectTrigger,
+  SelectValue,
+  SelectGroup,
+  SelectItem,
+  Select,
+} from '@/components/ui/select'
 
 export default function ChatWindow({
   setSelectedChat,
@@ -23,9 +31,15 @@ export default function ChatWindow({
   const scrollContainerRef = useRef<HTMLDivElement>(null)
   const messagesEndRef = useRef<HTMLDivElement>(null)
 
+  const [selectedModel, setSelectedModel] = useState('gpt-3.5-turbo')
   const [showScrollButton, setShowScrollButton] = useState(false)
   const [isSending, setIsSending] = useState(false)
   const [message, setMessage] = useState('')
+
+  const availableModels = [
+    { id: 'gpt-3.5-turbo', label: 'GPT-3.5' },
+    { id: 'gpt-4', label: 'GPT-4' },
+  ]
 
   const sendMessageHandler = async () => {
     if (!message.trim() || !selectedChat) return
@@ -37,7 +51,7 @@ export default function ChatWindow({
         `/chats/${selectedChat.id}/messages/question`,
         {
           method: 'POST',
-          body: JSON.stringify({ question: message }),
+          body: JSON.stringify({ question: message, model: selectedModel }),
           headers: { 'Content-Type': 'application/json' },
         }
       )
@@ -126,9 +140,30 @@ export default function ChatWindow({
   }
 
   return (
-    <Card className="w-3/4 flex flex-col justify-between">
-      <CardHeader className="text-lg font-semibold px-4">
-        {selectedChat.title || 'Chat'}
+    <Card className="w-full sm:w-3/4 flex flex-col justify-between">
+      <CardHeader className="px-4">
+        <div className="flex justify-between items-center">
+          <div className="text-lg font-semibold">
+            {selectedChat.title || 'Chat'}
+          </div>
+
+          <Select value={selectedModel} onValueChange={setSelectedModel}>
+            <SelectTrigger className="w-[160px]">
+              <SelectValue placeholder="Select a model">
+                {availableModels.find((m) => m.id === selectedModel)?.label}
+              </SelectValue>
+            </SelectTrigger>
+            <SelectContent>
+              <SelectGroup>
+                {availableModels.map((model) => (
+                  <SelectItem key={model.id} value={model.id}>
+                    {model.label}
+                  </SelectItem>
+                ))}
+              </SelectGroup>
+            </SelectContent>
+          </Select>
+        </div>
       </CardHeader>
 
       <ScrollArea className="flex-1 px-4 py-4 space-y-4">

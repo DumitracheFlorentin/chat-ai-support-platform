@@ -17,7 +17,7 @@ export default function ChatLayout({
   chats: Chat[]
 }) {
   return (
-    <div className="flex flex-grow gap-4 py-2">
+    <div className="flex flex-col sm:flex-row gap-4 py-2">
       <ChatSidebar
         chats={chats}
         selectedChat={selectedChat}

@@ -36,11 +36,11 @@ export default function ChatSidebar({
   }
 
   return (
-    <Card className="w-1/4 flex flex-col h-full max-h-[90vh]">
+    <Card className="w-full sm:w-1/4 flex flex-col h-full max-h-[35vh] sm:max-h-[90vh]">
       <CardHeader className="text-lg font-bold">Chats</CardHeader>
       <div className="flex flex-col flex-grow overflow-hidden">
-        <ScrollArea className="flex-1 px-4">
-          <div className="space-y-2 pb-4 h-[34.5rem]">
+        <ScrollArea className="flex-1 px-4 py-3 sm:py-0">
+          <div className="space-y-2 pb-4 h-[5rem] sm:h-[34.5rem]">
             {chats.map((chat) => (
               <ChatItem
                 key={chat.id}

@@ -97,13 +97,20 @@ The frontend should now be running on `http://localhost:5173`.
 
 Explore a preview of the AI-powered support dashboard and product management interface:
 
+<<<<<<< HEAD
 ### 📊 Dashboard Overview  
 E-commerce chatbot performance, usage statistics, and feedback insights — all in one place.
+=======
+### 📊 Dashboard Overview
+
+E-commerce chatbot performance, usage statistics, and feedback insights all in one place.
+>>>>>>> e576386 (mobile responsive + switch engine model)
 
 ![Dashboard Overview](https://github.com/user-attachments/assets/6fe3b750-b070-44d1-b528-c625185694d8)
 
 ---
 
+<<<<<<< HEAD
 ### 🛍️ Product Management Table  
 Easily view, edit, or delete products with live inline actions and sorting/filtering.
 
@@ -115,3 +122,10 @@ Easily view, edit, or delete products with live inline actions and sorting/filte
 Simulates real-time conversations between users and the AI assistant. Supports multilingual queries, product questions, and formatted AI responses with product cards.
 
 ![Chat Interface](https://github.com/user-attachments/assets/f0b50127-f5c0-4a74-8880-de532e30c63f)
+=======
+### 🛍️ Product Management Table
+
+Easily view, edit, or delete products with live inline actions and sorting/filtering.
+
+![Product Table](https://github.com/user-attachments/assets/7ce0e034-5ad6-4de1-8f74-3cdc708ab2a5)
+>>>>>>> e576386 (mobile responsive + switch engine model)

@@ -74,8 +74,8 @@ export default function Dashboard() {
         {loading ? (
           <p className="text-gray-500">Loading...</p>
         ) : (
-          <div className="mt-5 flex flex-wrap justify-between gap-4">
-            <Card className="w-full md:w-[375px]">
+          <div className="mt-5 flex flex-wrap gap-4">
+            <Card className="w-full lg:w-[375px]">
               <CardHeader>
                 <CardTitle>Total</CardTitle>
                 <CardDescription>View and manage all products.</CardDescription>
@@ -86,7 +86,7 @@ export default function Dashboard() {
               </CardContent>
             </Card>
 
-            <Card className="w-full md:w-[375px]">
+            <Card className="w-full lg:w-[375px]">
               <CardHeader>
                 <CardTitle>Added This Month</CardTitle>
                 <CardDescription>
@@ -99,7 +99,7 @@ export default function Dashboard() {
               </CardContent>
             </Card>
 
-            <Card className="w-full md:w-[375px]">
+            <Card className="w-full lg:w-[375px]">
               <CardHeader>
                 <CardTitle>Added This Week</CardTitle>
                 <CardDescription>
@@ -123,8 +123,8 @@ export default function Dashboard() {
         {loading ? (
           <p className="text-gray-500">Loading...</p>
         ) : (
-          <div className="mt-5 flex flex-wrap gap-x-10 gap-y-4">
-            <Card className="w-full md:w-[375px]">
+          <div className="mt-5 flex flex-wrap gap-4">
+            <Card className="w-full lg:w-[375px]">
               <CardHeader>
                 <CardTitle>Threads</CardTitle>
                 <CardDescription>
@@ -136,7 +136,7 @@ export default function Dashboard() {
               </CardContent>
             </Card>
 
-            <Card className="w-full md:w-[375px]">
+            <Card className="w-full lg:w-[375px]">
               <CardHeader>
                 <CardTitle>Messages</CardTitle>
                 <CardDescription>
