@@ -55,7 +55,7 @@ export async function getAllChats(req: Request, res: Response) {
 
 export async function chatWithAI(req: Request, res: Response) {
   try {
-    const { question } = req.body
+    const { question, model } = req.body
 
     if (!question || typeof question !== 'string') {
       res
@@ -64,7 +64,7 @@ export async function chatWithAI(req: Request, res: Response) {
       return
     }
 
-    const answer = await chatService.askWithContext(question)
+    const answer = await chatService.askWithContext(question, model)
 
     const savedAnswer = await messageService.saveMessage(
       req.params.id,

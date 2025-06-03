@@ -3,7 +3,10 @@ import * as openaiService from './partners/openai.service'
 
 import prisma from '../lib/prisma'
 
-export async function askWithContext(question: string): Promise<string> {
+export async function askWithContext(
+  question: string,
+  model: string = 'gpt-3.5-turbo'
+): Promise<string> {
   const embedding = await openaiService.generateEmbedding(question)
 
   const queryResponse = await pineconeService.pineconeIndex.query({
@@ -27,10 +30,11 @@ ${m.price ? `- 💵 Price: ${m.price} RON` : ''}`
     })
     .join('\n')
 
-  return openaiService.generateChatCompletion([
-    {
-      role: 'system',
-      content: `You are an AI assistant for an online store. You have access ONLY to the list of products below.
+  return openaiService.generateChatCompletion(
+    [
+      {
+        role: 'system',
+        content: `You are an AI assistant for an online store. You have access ONLY to the list of products below.
 
       You are NOT allowed to invent products, specifications, or prices. Do NOT provide general answers if the information is not in the list.
 
@@ -52,12 +56,14 @@ ${m.price ? `- 💵 Price: ${m.price} RON` : ''}`
       Use only products from the provided context.
 
       Context:\n\n${context}`,
-    },
-    {
-      role: 'user',
-      content: question,
-    },
-  ])
+      },
+      {
+        role: 'user',
+        content: question,
+      },
+    ],
+    model || 'gpt-3.5-turbo'
+  )
 }
 
 export async function createChat(title: string) {

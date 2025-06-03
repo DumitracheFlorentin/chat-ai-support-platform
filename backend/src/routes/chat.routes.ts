@@ -13,11 +13,11 @@ import {
 
 const router = Router()
 
-router.get('/count/total', getAllChats)
-router.get('/count/messages', getAllMessages)
 router.post('/:id/messages/question', saveMessageByChatId)
 router.get('/:id/messages', getMessagesByChatId)
+router.get('/count/messages', getAllMessages)
 router.post('/:id/messages', chatWithAI)
+router.get('/count/total', getAllChats)
 router.put('/:id', editTitleByChatId)
 router.delete('/:id', deleteChatById)
 router.post('/', createChat)

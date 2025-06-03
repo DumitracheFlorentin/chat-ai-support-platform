@@ -38,7 +38,7 @@ export default function ChatWindow({
 
   const availableModels = [
     { id: 'gpt-3.5-turbo', label: 'GPT-3.5' },
-    { id: 'gpt-4', label: 'GPT-4' },
+    { id: 'gpt-4o', label: 'GPT-4o' },
   ]
 
   const sendMessageHandler = async () => {
@@ -51,7 +51,7 @@ export default function ChatWindow({
         `/chats/${selectedChat.id}/messages/question`,
         {
           method: 'POST',
-          body: JSON.stringify({ question: message, model: selectedModel }),
+          body: JSON.stringify({ question: message }),
           headers: { 'Content-Type': 'application/json' },
         }
       )
@@ -77,7 +77,7 @@ export default function ChatWindow({
         `/chats/${selectedChat.id}/messages`,
         {
           method: 'POST',
-          body: JSON.stringify({ question: message }),
+          body: JSON.stringify({ question: message, model: selectedModel }),
           headers: { 'Content-Type': 'application/json' },
         }
       )
