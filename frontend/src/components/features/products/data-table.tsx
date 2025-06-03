@@ -127,110 +127,112 @@ export function DataTable<TData, TValue>({
 
   return (
     <div>
-      <div className="flex items-center py-4">
+      <div className="flex justify-between items-center py-4">
         <Input
           placeholder="Filter name..."
           value={(table.getColumn('name')?.getFilterValue() as string) ?? ''}
           onChange={(event) =>
             table.getColumn('name')?.setFilterValue(event.target.value)
           }
-          className="max-w-sm"
+          className="max-w-[13rem] sm:max-w-sm"
         />
 
-        <DropdownMenu>
-          <DropdownMenuTrigger asChild>
-            <Button variant="outline" className="ml-auto cursor-pointer">
-              Columns
-            </Button>
-          </DropdownMenuTrigger>
-          <DropdownMenuContent align="end">
-            {table
-              .getAllColumns()
-              .filter((column) => column.getCanHide())
-              .map((column) => {
-                return (
-                  <DropdownMenuCheckboxItem
-                    key={column.id}
-                    className="capitalize"
-                    checked={column.getIsVisible()}
-                    onCheckedChange={(value) =>
-                      column.toggleVisibility(!!value)
-                    }
-                  >
-                    {column.id}
-                  </DropdownMenuCheckboxItem>
-                )
-              })}
-          </DropdownMenuContent>
-        </DropdownMenu>
+        <div className="flex">
+          <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+              <Button variant="outline" className="ml-auto cursor-pointer">
+                Columns
+              </Button>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent align="end">
+              {table
+                .getAllColumns()
+                .filter((column) => column.getCanHide())
+                .map((column) => {
+                  return (
+                    <DropdownMenuCheckboxItem
+                      key={column.id}
+                      className="capitalize"
+                      checked={column.getIsVisible()}
+                      onCheckedChange={(value) =>
+                        column.toggleVisibility(!!value)
+                      }
+                    >
+                      {column.id}
+                    </DropdownMenuCheckboxItem>
+                  )
+                })}
+            </DropdownMenuContent>
+          </DropdownMenu>
 
-        <Dialog open={openAdd} onOpenChange={setOpenAdd}>
-          <DialogTrigger asChild>
-            <Button className="ml-2 cursor-pointer">Add Product</Button>
-          </DialogTrigger>
-          <DialogContent>
-            <DialogHeader>
-              <DialogTitle>Add New Product</DialogTitle>
-            </DialogHeader>
-            <form
-              onSubmit={(e) => {
-                e.preventDefault()
-                handleAddProduct()
-              }}
-              className="space-y-4"
-            >
-              <div className="grid gap-2">
-                <Label htmlFor="name">Name</Label>
-                <Input
-                  id="name"
-                  value={formData.name}
-                  onChange={(e) =>
-                    setFormData({ ...formData, name: e.target.value })
-                  }
-                />
-              </div>
-              <div className="grid gap-2">
-                <Label htmlFor="description">Description</Label>
-                <Input
-                  id="description"
-                  value={formData.description}
-                  onChange={(e) =>
-                    setFormData({ ...formData, description: e.target.value })
-                  }
-                />
-              </div>
-              <div className="grid gap-2">
-                <Label htmlFor="price">Price</Label>
-                <Input
-                  id="price"
-                  type="number"
-                  step="0.01"
-                  value={formData.price}
-                  onChange={(e) =>
-                    setFormData({ ...formData, price: e.target.value })
-                  }
-                />
-              </div>
-              <DialogFooter>
-                <Button
-                  type="button"
-                  variant="secondary"
-                  className="cursor-pointer"
-                  onClick={() => setOpenAdd(false)}
-                >
-                  Cancel
-                </Button>
-                <Button
-                  type="submit"
-                  className="cursor-pointer"
-                  disabled={loading}
-                >
-                  {loading ? 'Adding...' : 'Add Product'}
-                </Button>
-              </DialogFooter>
-            </form>
-          </DialogContent>
-        </Dialog>
+          <Dialog open={openAdd} onOpenChange={setOpenAdd}>
+            <DialogTrigger asChild>
+              <Button className="ml-2 cursor-pointer">Add Product</Button>
+            </DialogTrigger>
+            <DialogContent>
+              <DialogHeader>
+                <DialogTitle>Add New Product</DialogTitle>
+              </DialogHeader>
+              <form
+                onSubmit={(e) => {
+                  e.preventDefault()
+                  handleAddProduct()
+                }}
+                className="space-y-4"
+              >
+                <div className="grid gap-2">
+                  <Label htmlFor="name">Name</Label>
+                  <Input
+                    id="name"
+                    value={formData.name}
+                    onChange={(e) =>
+                      setFormData({ ...formData, name: e.target.value })
+                    }
+                  />
+                </div>
+                <div className="grid gap-2">
+                  <Label htmlFor="description">Description</Label>
+                  <Input
+                    id="description"
+                    value={formData.description}
+                    onChange={(e) =>
+                      setFormData({ ...formData, description: e.target.value })
+                    }
+                  />
+                </div>
+                <div className="grid gap-2">
+                  <Label htmlFor="price">Price</Label>
+                  <Input
+                    id="price"
+                    type="number"
+                    step="0.01"
+                    value={formData.price}
+                    onChange={(e) =>
+                      setFormData({ ...formData, price: e.target.value })
+                    }
+                  />
+                </div>
+                <DialogFooter>
+                  <Button
+                    type="button"
+                    variant="secondary"
+                    className="cursor-pointer"
+                    onClick={() => setOpenAdd(false)}
+                  >
+                    Cancel
+                  </Button>
+                  <Button
+                    type="submit"
+                    className="cursor-pointer"
+                    disabled={loading}
+                  >
+                    {loading ? 'Adding...' : 'Add Product'}
+                  </Button>
+                </DialogFooter>
+              </form>
+            </DialogContent>
+          </Dialog>
+        </div>
       </div>
 
       <div className="rounded-md border">

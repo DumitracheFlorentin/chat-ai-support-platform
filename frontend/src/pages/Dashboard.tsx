@@ -3,6 +3,7 @@ import { toast } from 'sonner'
 
 import apiRequest from '@/api/apiRequest'
 
+import Loading from '../components/core/Loading'
 import {
   CardDescription,
   CardContent,
@@ -72,7 +73,7 @@ export default function Dashboard() {
         </h2>
 
         {loading ? (
-          <p className="text-gray-500">Loading...</p>
+          <Loading />
         ) : (
           <div className="mt-5 flex flex-wrap gap-4">
             <Card className="w-full lg:w-[375px]">
@@ -121,7 +122,7 @@ export default function Dashboard() {
         </h2>
 
         {loading ? (
-          <p className="text-gray-500">Loading...</p>
+          <Loading />
         ) : (
           <div className="mt-5 flex flex-wrap gap-4">
             <Card className="w-full lg:w-[375px]">

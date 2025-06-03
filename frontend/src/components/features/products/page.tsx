@@ -6,6 +6,8 @@ import { columns as productColumns } from './columns'
 
 import apiRequest from '@/api/apiRequest'
 
+import Loading from '../../core/Loading'
+
 export default function Table() {
   const [data, setData] = useState<Product[]>([])
   const [loading, setLoading] = useState(true)
@@ -36,7 +38,7 @@ export default function Table() {
   }, [])
 
   if (loading) {
-    return <div className="container mx-auto py-1">Loading...</div>
+    return <Loading />
   }
 
   return (
