@@ -12,3 +12,11 @@ export interface Chat {
   updatedAt: string
   messages: ChatMessage[]
 }
+
+export interface AIModel {
+  id: string
+  name: string
+  provider: 'openai' | 'gemini'
+  maxTokens?: number
+  temperature?: number
+}

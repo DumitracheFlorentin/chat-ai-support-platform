@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom'
 import { toast } from 'sonner'
 
 import apiRequest from '@/api/apiRequest'
+import { AI_MODELS, getDefaultModel } from '@/config/ai-models'
 
 import { ScrollArea } from '@/components/ui/scroll-area'
 import { Card, CardHeader } from '@/components/ui/card'
@@ -31,15 +32,10 @@ export default function ChatWindow({
   const scrollContainerRef = useRef<HTMLDivElement>(null)
   const messagesEndRef = useRef<HTMLDivElement>(null)
 
-  const [selectedModel, setSelectedModel] = useState('gpt-3.5-turbo')
+  const [selectedModel, setSelectedModel] = useState(getDefaultModel().id)
   const [showScrollButton, setShowScrollButton] = useState(false)
   const [isSending, setIsSending] = useState(false)
   const [message, setMessage] = useState('')
-
-  const availableModels = [
-    { id: 'gpt-3.5-turbo', label: 'GPT-3.5' },
-    { id: 'gpt-4o', label: 'GPT-4o' },
-  ]
 
   const sendMessageHandler = async () => {
     if (!message.trim() || !selectedChat) return
@@ -150,14 +146,14 @@ export default function ChatWindow({
           <Select value={selectedModel} onValueChange={setSelectedModel}>
             <SelectTrigger className="w-[160px]">
               <SelectValue placeholder="Select a model">
-                {availableModels.find((m) => m.id === selectedModel)?.label}
+                {AI_MODELS.find((m) => m.id === selectedModel)?.name}
               </SelectValue>
             </SelectTrigger>
             <SelectContent>
               <SelectGroup>
-                {availableModels.map((model) => (
+                {AI_MODELS.map((model) => (
                   <SelectItem key={model.id} value={model.id}>
-                    {model.label}
+                    {model.name}
                   </SelectItem>
                 ))}
               </SelectGroup>

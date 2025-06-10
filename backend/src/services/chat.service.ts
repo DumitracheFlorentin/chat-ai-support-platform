@@ -1,12 +1,17 @@
 import * as pineconeService from './partners/pinecone.service'
 import * as openaiService from './partners/openai.service'
+import * as geminiService from './partners/gemini.service'
+import { getModelById, getDefaultModel } from '../config/ai-models'
 
 import prisma from '../lib/prisma'
 
 export async function askWithContext(
   question: string,
-  model: string = 'gpt-3.5-turbo'
+  modelId: string = 'gpt-3.5-turbo'
 ): Promise<string> {
+  const model = getModelById(modelId) || getDefaultModel()
+  
+  // Always use OpenAI for embeddings to maintain consistency with Pinecone index
   const embedding = await openaiService.generateEmbedding(question)
 
   const queryResponse = await pineconeService.pineconeIndex.query({
@@ -30,11 +35,10 @@ ${m.price ? `- 💵 Price: ${m.price} RON` : ''}`
     })
     .join('\n')
 
-  return openaiService.generateChatCompletion(
-    [
-      {
-        role: 'system',
-        content: `You are an AI assistant for an online store. You have access ONLY to the list of products below.
+  const messages = [
+    {
+      role: 'system' as const,
+      content: `You are an AI assistant for an online store. You have access ONLY to the list of products below.
 
       You are NOT allowed to invent products, specifications, or prices. Do NOT provide general answers if the information is not in the list.
 
@@ -56,14 +60,17 @@ ${m.price ? `- 💵 Price: ${m.price} RON` : ''}`
       Use only products from the provided context.
 
       Context:\n\n${context}`,
-      },
-      {
-        role: 'user',
-        content: question,
-      },
-    ],
-    model || 'gpt-3.5-turbo'
-  )
+    },
+    {
+      role: 'user' as const,
+      content: question,
+    },
+  ]
+
+  // Choose completion service based on provider
+  return model.provider === 'gemini'
+    ? geminiService.generateChatCompletion(messages, model.id, model.temperature)
+    : openaiService.generateChatCompletion(messages, model.id, model.temperature)
 }
 
 export async function createChat(title: string) {

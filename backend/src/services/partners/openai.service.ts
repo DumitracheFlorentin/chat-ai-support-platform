@@ -21,7 +21,7 @@ export async function generateEmbedding(text: string): Promise<number[]> {
 export async function generateChatCompletion(
   messages: chatInterfaces.ChatCompletionRequestMessage[],
   model: string = 'gpt-3.5-turbo',
-  temperature = 0.3
+  temperature: number = 0.3
 ): Promise<string> {
   const res = await openai.chat.completions.create({
     model,
