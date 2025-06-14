@@ -55,7 +55,7 @@ export async function askWithContext(
   // Query Pinecone
   const queryResponse = await pineconeIndex.query({
     vector: embedding,
-    topK: 10,
+    topK: 5,
     includeMetadata: true,
   })
   console.log(
@@ -91,17 +91,20 @@ export async function askWithContext(
   const messages = [
     {
       role: 'system' as const,
-      content: `You are an AI assistant for an online store. You have access ONLY to the list of products below, provided as a JSON array.
+      content: `You are an AI assistant for an online electronics store. You are given a list of products as a JSON array.
 
-Return a JSON array of products from the list that match the user's request. Each product should have:
-- name
-- description
-- price
-- image (optional)
+Your task is to return a JSON array of products from the list that are likely to match the user's request, even if not all details are present. Be helpful and flexible: if a product seems relevant, include it. If no products match, return an empty array [].
 
-If no products match, return an empty array: []
+IMPORTANT:
+- Respond ONLY with a valid JSON array. Do not include any other text, explanation, or markdown. Do not say anything else.
+- If you are unsure, include products that are close matches.
 
-IMPORTANT: Respond ONLY with a valid JSON array. Do not include any other text, explanation, or markdown. Do not say anything else.
+Example:
+User: Show me laptops with 16GB RAM and 512GB SSD.
+Response: [
+  { "name": "Example Laptop 1", "description": "A laptop with 16GB RAM and 512GB SSD.", "price": 1200 },
+  { "name": "Example Laptop 2", "description": "A gaming laptop with 16GB RAM and 1TB SSD.", "price": 1500 }
+]
 
 Here is the product list:
 ${contextJson}`,

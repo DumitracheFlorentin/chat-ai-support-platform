@@ -14,12 +14,6 @@ export const AI_MODELS: AIModel[] = [
     temperature: 0.7,
   },
   {
-    id: 'gpt4Turbo',
-    name: 'GPT-4 Turbo',
-    provider: 'openai',
-    temperature: 0.7,
-  },
-  {
     id: 'gpt4o',
     name: 'GPT-4o',
     provider: 'openai',

@@ -1,0 +1,752 @@
+{
+  "questions": [
+    {
+      "question": "What is the best laptop for programming?",
+      "answers": {
+        "ada-002": {
+          "gpt 3.5 turbo": [
+            {
+              "name": "Jones PLC Laptop XP2793",
+              "description": "The Jones PLC XP2793 is a high-performance laptop featuring an Intel i7 processor, 16GB RAM, and a 512GB SSD. Designed for multitasking and professional workloads.",
+              "price": 2062.04
+            },
+            {
+              "name": "Sloan-Elliott Laptop LN3115",
+              "description": "The Sloan-Elliott LN3115 is a high-performance laptop featuring an Intel i7 processor, 16GB RAM, and a 512GB SSD. Designed for multitasking and professional workloads.",
+              "price": 2797.71
+            },
+            {
+              "name": "Lyons, Campos and Leon Laptop OG277",
+              "description": "The Lyons, Campos and Leon OG277 is a high-performance laptop featuring an Intel i7 processor, 16GB RAM, and a 512GB SSD. Designed for multitasking and professional workloads.",
+              "price": 1979.6
+            }
+          ],
+          "gpt 4": [
+            {
+              "name": "West-Dyer Laptop WES-618",
+              "description": "This laptop features Intel i7, 16GB RAM, 4K display. Designed for performance and reliability in everyday tasks.",
+              "price": 2836.58
+            },
+            {
+              "name": "Jones PLC Laptop XP2793",
+              "description": "The Jones PLC XP2793 is a high-performance laptop featuring an Intel i7 processor, 16GB RAM, and a 512GB SSD. Designed for multitasking and professional workloads.",
+              "price": 2062.04
+            },
+            {
+              "name": "Thompson PLC Laptop THO-555",
+              "description": "This laptop features 16GB RAM, 4K display, Intel i7. Designed for performance and reliability in everyday tasks.",
+              "price": 1191.17
+            },
+            {
+              "name": "Sloan-Elliott Laptop LN3115",
+              "description": "The Sloan-Elliott LN3115 is a high-performance laptop featuring an Intel i7 processor, 16GB RAM, and a 512GB SSD. Designed for multitasking and professional workloads.",
+              "price": 2797.71
+            },
+            {
+              "name": "Lyons, Campos and Leon Laptop OG277",
+              "description": "The Lyons, Campos and Leon OG277 is a high-performance laptop featuring an Intel i7 processor, 16GB RAM, and a 512GB SSD. Designed for multitasking and professional workloads.",
+              "price": 1979.6
+            },
+            {
+              "name": "Clark PLC Laptop VU7687",
+              "description": "The Clark PLC VU7687 is a high-performance laptop featuring an Intel i7 processor, 16GB RAM, and a 512GB SSD. Designed for multitasking and professional workloads.",
+              "price": 411.07
+            },
+            {
+              "name": "Green-Smith Laptop TO6088",
+              "description": "The Green-Smith TO6088 is a high-performance laptop featuring an Intel i7 processor, 16GB RAM, and a 512GB SSD. Designed for multitasking and professional workloads.",
+              "price": 1850.37
+            },
+            {
+              "name": "Johnson, Lee and Schmidt Laptop MV8214",
+              "description": "The Johnson, Lee and Schmidt MV8214 is a high-performance laptop featuring an Intel i7 processor, 16GB RAM, and a 512GB SSD. Designed for multitasking and professional workloads.",
+              "price": 1759.82
+            },
+            {
+              "name": "Clark Group Laptop DL8730",
+              "description": "The Clark Group DL8730 is a high-performance laptop featuring an Intel i7 processor, 16GB RAM, and a 512GB SSD. Designed for multitasking and professional workloads.",
+              "price": 2447.59
+            },
+            {
+              "name": "Henry PLC Laptop RC618",
+              "description": "The Henry PLC RC618 is a high-performance laptop featuring an Intel i7 processor, 16GB RAM, and a 512GB SSD. Designed for multitasking and professional workloads.",
+              "price": 2682.5
+            }
+          ],
+          "gpt 4o": "No products found. Please try to be more concise or provide more details about what you want."
+        },
+        "3-large": {
+          "gpt 3.5 turbo": [
+            {
+              "name": "Schultz, Rowe and Cummings Laptop SCH-311",
+              "description": "This laptop features Intel i7, AMD Ryzen 9, 16GB RAM. Designed for performance and reliability in everyday tasks.",
+              "price": 2229.13
+            },
+            {
+              "name": "West-Dyer Laptop WES-618",
+              "description": "This laptop features Intel i7, 16GB RAM, 4K display. Designed for performance and reliability in everyday tasks.",
+              "price": 2836.58
+            }
+          ],
+          "gpt 4": [
+            {
+              "name": "West-Dyer Laptop WES-618",
+              "description": "This laptop features Intel i7, 16GB RAM, 4K display. Designed for performance and reliability in everyday tasks.",
+              "price": 2836.58
+            },
+            {
+              "name": "Sanchez PLC Laptop CS6131",
+              "description": "The Sanchez PLC CS6131 is a high-performance laptop featuring an Intel i7 processor, 16GB RAM, and a 512GB SSD. Designed for multitasking and professional workloads.",
+              "price": 2404.34
+            },
+            {
+              "name": "Schultz, Rowe and Cummings Laptop SCH-311",
+              "description": "This laptop features Intel i7, AMD Ryzen 9, 16GB RAM. Designed for performance and reliability in everyday tasks.",
+              "price": 2229.13
+            }
+          ],
+          "gpt 4o": "No products found. Please try to be more concise or provide more details about what you want."
+        },
+        "gemini-001": {
+          "gemini 1.5 pro": [
+            {
+              "name": "Hess PLC Laptop DD2288",
+              "description": "The Hess PLC DD2288 is a high-performance laptop featuring an Intel i7 processor, 16GB RAM, and a 512GB SSD. Designed for multitasking and professional workloads.",
+              "price": 1141.59
+            },
+            {
+              "name": "Mack PLC Laptop QR1201",
+              "description": "The Mack PLC QR1201 is a high-performance laptop featuring an Intel i7 processor, 16GB RAM, and a 512GB SSD. Designed for multitasking and professional workloads.",
+              "price": 2115.59
+            },
+            {
+              "name": "Jones PLC Laptop XP2793",
+              "description": "The Jones PLC XP2793 is a high-performance laptop featuring an Intel i7 processor, 16GB RAM, and a 512GB SSD. Designed for multitasking and professional workloads.",
+              "price": 2062.04
+            },
+            {
+              "name": "Tyler PLC Laptop EU7999",
+              "description": "The Tyler PLC EU7999 is a high-performance laptop featuring an Intel i7 processor, 16GB RAM, and a 512GB SSD. Designed for multitasking and professional workloads.",
+              "price": 2490.98
+            }
+          ]
+        }
+      }
+    },
+    {
+      "question": "Can you recommend a lightweight tablet suitable for reading and web browsing?",
+      "answers": {
+        "ada-002": {
+          "gpt 3.5 turbo": [
+            {
+              "name": "Johnson-West Tablet IQ8035",
+              "description": "The Johnson-West IQ8035 tablet boasts a 12.9-inch Liquid Retina display, Apple M2 chip, and stylus support, making it ideal for creatives and professionals alike.",
+              "price": 59.15
+            }
+          ],
+          "gpt 4": [
+            {
+              "name": "Bishop, Joseph and Webb Tablet ZT3357",
+              "description": "The Bishop, Joseph and Webb ZT3357 tablet boasts a 12.9-inch Liquid Retina display, Apple M2 chip, and stylus support, making it ideal for creatives and professionals alike.",
+              "price": 747.71
+            },
+            {
+              "name": "Webb Group Tablet QT1398",
+              "description": "The Webb Group QT1398 tablet boasts a 12.9-inch Liquid Retina display, Apple M2 chip, and stylus support, making it ideal for creatives and professionals alike.",
+              "price": 2084.94
+            },
+            {
+              "name": "Hansen-Brown Tablet QW1250",
+              "description": "The Hansen-Brown QW1250 tablet boasts a 12.9-inch Liquid Retina display, Apple M2 chip, and stylus support, making it ideal for creatives and professionals alike.",
+              "price": 1521.67
+            },
+            {
+              "name": "Johnson-West Tablet IQ8035",
+              "description": "The Johnson-West IQ8035 tablet boasts a 12.9-inch Liquid Retina display, Apple M2 chip, and stylus support, making it ideal for creatives and professionals alike.",
+              "price": 59.15
+            },
+            {
+              "name": "White, Wilson and Curtis Tablet NH8009",
+              "description": "The White, Wilson and Curtis NH8009 tablet boasts a 12.9-inch Liquid Retina display, Apple M2 chip, and stylus support, making it ideal for creatives and professionals alike.",
+              "price": 2270
+            }
+          ],
+          "gpt 4o": [
+            {
+              "name": "Bishop, Joseph and Webb Tablet ZT3357",
+              "description": "The Bishop, Joseph and Webb ZT3357 tablet boasts a 12.9-inch Liquid Retina display, Apple M2 chip, and stylus support, making it ideal for creatives and professionals alike.",
+              "price": 747.71
+            },
+            {
+              "name": "Johnson-West Tablet IQ8035",
+              "description": "The Johnson-West IQ8035 tablet boasts a 12.9-inch Liquid Retina display, Apple M2 chip, and stylus support, making it ideal for creatives and professionals alike.",
+              "price": 59.15
+            }
+          ]
+        },
+        "3-large": {
+          "gpt 3.5 turbo": [
+            {
+              "name": "Neal, Wallace and Vasquez Tablet LX2250",
+              "description": "The Neal, Wallace and Vasquez LX2250 tablet boasts a 12.9-inch Liquid Retina display, Apple M2 chip, and stylus support, making it ideal for creatives and professionals alike.",
+              "price": 547.71
+            },
+            {
+              "name": "Bishop, Joseph and Webb Tablet ZT3357",
+              "description": "The Bishop, Joseph and Webb ZT3357 tablet boasts a 12.9-inch Liquid Retina display, Apple M2 chip, and stylus support, making it ideal for creatives and professionals alike.",
+              "price": 747.71
+            }
+          ],
+          "gpt 4": [
+            {
+              "name": "Neal, Wallace and Vasquez Tablet LX2250",
+              "description": "The Neal, Wallace and Vasquez LX2250 tablet boasts a 12.9-inch Liquid Retina display, Apple M2 chip, and stylus support, making it ideal for creatives and professionals alike.",
+              "price": 547.71
+            },
+            {
+              "name": "Wilson-Reed Tablet WIL-252",
+              "description": "This tablet features Stylus support, 10.1-inch screen, Apple M1. Designed for performance and reliability in everyday tasks.",
+              "price": 2582.3
+            },
+            {
+              "name": "Khan, Sawyer and Mcpherson Tablet NB5336",
+              "description": "The Khan, Sawyer and Mcpherson NB5336 tablet boasts a 12.9-inch Liquid Retina display, Apple M2 chip, and stylus support, making it ideal for creatives and professionals alike.",
+              "price": 2758.98
+            },
+            {
+              "name": "Bishop, Joseph and Webb Tablet ZT3357",
+              "description": "The Bishop, Joseph and Webb ZT3357 tablet boasts a 12.9-inch Liquid Retina display, Apple M2 chip, and stylus support, making it ideal for creatives and professionals alike.",
+              "price": 747.71
+            },
+            {
+              "name": "Reed, Byrd and Shelton Tablet DW866",
+              "description": "The Reed, Byrd and Shelton DW866 tablet boasts a 12.9-inch Liquid Retina display, Apple M2 chip, and stylus support, making it ideal for creatives and professionals alike.",
+              "price": 2116.88
+            }
+          ],
+          "gpt 4o": [
+            {
+              "name": "Neal, Wallace and Vasquez Tablet LX2250",
+              "description": "The Neal, Wallace and Vasquez LX2250 tablet boasts a 12.9-inch Liquid Retina display, Apple M2 chip, and stylus support, making it ideal for creatives and professionals alike.",
+              "price": 547.71
+            },
+            {
+              "name": "Wilson-Reed Tablet WIL-252",
+              "description": "This tablet features Stylus support, 10.1-inch screen, Apple M1. Designed for performance and reliability in everyday tasks.",
+              "price": 2582.3
+            }
+          ]
+        },
+        "gemini-001": {
+          "gemini 1.5 pro": [
+            {
+              "name": "HP Tablet 16GB RAM Ryzen 5 4K",
+              "description": "Much war treatment hundred look add. Information wife thousand again movie. Blue garden this focus do. Grow note firm staff miss.",
+              "price": 841.93
+            },
+            {
+              "name": "Acer Tablet Intel i7",
+              "description": "Add short effort. Whether civil fact soon world travel. Kid issue main information after likely. What program forward until help public class with.",
+              "price": 291.95
+            },
+            {
+              "name": "Asus Tablet Touchscreen OLED Wi-Fi 6",
+              "description": "Current sometimes some commercial player. Behavior dinner save road beautiful. The particular medical none bill.",
+              "price": 2453.43
+            },
+            {
+              "name": "MSI Tablet 1TB HDD 16GB RAM LED",
+              "description": "I however move practice. Century than tend resource. Image think former mind trade military yeah.",
+              "price": 823.92
+            },
+            {
+              "name": "HP Tablet Wi-Fi 6 4K",
+              "description": "Task know travel me. What red strong someone election at. Toward move pressure institution personal difference hotel.",
+              "price": 1965.08
+            }
+          ]
+        }
+      }
+    },
+    {
+      "question": "Are there any headphones with active noise cancellation and long battery life?",
+      "answers": {
+        "ada-002": {
+          "gpt 3.5 turbo": [
+            {
+              "name": "Guzman Ltd Headphones GUZ-486",
+              "description": "This headphones features 20h battery, Bluetooth, Noise cancelling. Designed for performance and reliability in everyday tasks.",
+              "price": 973.98
+            },
+            {
+              "name": "Andrews PLC Headphones AND-217",
+              "description": "This headphones features Noise cancelling, Bluetooth, 20h battery. Designed for performance and reliability in everyday tasks.",
+              "price": 733.66
+            },
+            {
+              "name": "Harper-Bass Headphones HAR-989",
+              "description": "This headphones features 20h battery, Noise cancelling, Bluetooth. Designed for performance and reliability in everyday tasks.",
+              "price": 806.94
+            },
+            {
+              "name": "Lawson and Sons Headphones LAW-832",
+              "description": "This headphones features Noise cancelling, Bluetooth, 20h battery. Designed for performance and reliability in everyday tasks.",
+              "price": 1264.35
+            }
+          ],
+          "gpt 4": [
+            {
+              "name": "Guzman Ltd Headphones GUZ-486",
+              "description": "This headphones features 20h battery, Bluetooth, Noise cancelling. Designed for performance and reliability in everyday tasks.",
+              "price": 973.98
+            },
+            {
+              "name": "Andrews PLC Headphones AND-217",
+              "description": "This headphones features Noise cancelling, Bluetooth, 20h battery. Designed for performance and reliability in everyday tasks.",
+              "price": 733.66
+            },
+            {
+              "name": "Morgan-Gomez Headphones MOR-367",
+              "description": "This headphones features Noise cancelling, Over-ear, 20h battery. Designed for performance and reliability in everyday tasks.",
+              "price": 1558.25
+            },
+            {
+              "name": "Harper-Bass Headphones HAR-989",
+              "description": "This headphones features 20h battery, Noise cancelling, Bluetooth. Designed for performance and reliability in everyday tasks.",
+              "price": 806.94
+            },
+            {
+              "name": "Lawson and Sons Headphones LAW-832",
+              "description": "This headphones features Noise cancelling, Bluetooth, 20h battery. Designed for performance and reliability in everyday tasks.",
+              "price": 1264.35
+            }
+          ],
+          "gpt 4o": [
+            {
+              "name": "Guzman Ltd Headphones GUZ-486",
+              "description": "This headphones features 20h battery, Bluetooth, Noise cancelling. Designed for performance and reliability in everyday tasks.",
+              "price": 973.98
+            },
+            {
+              "name": "Andrews PLC Headphones AND-217",
+              "description": "This headphones features Noise cancelling, Bluetooth, 20h battery. Designed for performance and reliability in everyday tasks.",
+              "price": 733.66
+            },
+            {
+              "name": "Morgan-Gomez Headphones MOR-367",
+              "description": "This headphones features Noise cancelling, Over-ear, 20h battery. Designed for performance and reliability in everyday tasks.",
+              "price": 1558.25
+            },
+            {
+              "name": "Harper-Bass Headphones HAR-989",
+              "description": "This headphones features 20h battery, Noise cancelling, Bluetooth. Designed for performance and reliability in everyday tasks.",
+              "price": 806.94
+            },
+            {
+              "name": "Lawson and Sons Headphones LAW-832",
+              "description": "This headphones features Noise cancelling, Bluetooth, 20h battery. Designed for performance and reliability in everyday tasks.",
+              "price": 1264.35
+            }
+          ]
+        },
+        "3-large": {
+          "gpt 3.5 turbo": [
+            {
+              "name": "Long-Long Headphones GV908",
+              "description": "Enjoy immersive sound with the Long-Long GV908 over-ear headphones featuring ANC, Hi-Res Audio certification, and 40-hour battery life.",
+              "price": 2206.45
+            },
+            {
+              "name": "Brown-Jones Headphones CB6523",
+              "description": "Enjoy immersive sound with the Brown-Jones CB6523 over-ear headphones featuring ANC, Hi-Res Audio certification, and 40-hour battery life.",
+              "price": 2317.97
+            }
+          ],
+          "gpt 4": [
+            {
+              "name": "Long-Long Headphones GV908",
+              "description": "Enjoy immersive sound with the Long-Long GV908 over-ear headphones featuring ANC, Hi-Res Audio certification, and 40-hour battery life.",
+              "price": 2206.45
+            },
+            {
+              "name": "Brown-Jones Headphones CB6523",
+              "description": "Enjoy immersive sound with the Brown-Jones CB6523 over-ear headphones featuring ANC, Hi-Res Audio certification, and 40-hour battery life.",
+              "price": 2317.97
+            }
+          ],
+          "gpt 4o": [
+            {
+              "name": "Long-Long Headphones GV908",
+              "description": "Enjoy immersive sound with the Long-Long GV908 over-ear headphones featuring ANC, Hi-Res Audio certification, and 40-hour battery life.",
+              "price": 2206.45
+            },
+            {
+              "name": "Brown-Jones Headphones CB6523",
+              "description": "Enjoy immersive sound with the Brown-Jones CB6523 over-ear headphones featuring ANC, Hi-Res Audio certification, and 40-hour battery life.",
+              "price": 2317.97
+            }
+          ]
+        },
+        "gemini-001": {
+          "gemini 1.5 pro": [
+            {
+              "name": "Long-Long Headphones GV908",
+              "description": "Enjoy immersive sound with the Long-Long GV908 over-ear headphones featuring ANC, Hi-Res Audio certification, and 40-hour battery life.",
+              "price": 2206.45
+            },
+            {
+              "name": "Gonzales, Bush and Love Headphones TC8143",
+              "description": "Enjoy immersive sound with the Gonzales, Bush and Love TC8143 over-ear headphones featuring ANC, Hi-Res Audio certification, and 40-hour battery life.",
+              "price": 1198.02
+            },
+            {
+              "name": "Fowler-Long Headphones CD288",
+              "description": "Enjoy immersive sound with the Fowler-Long CD288 over-ear headphones featuring ANC, Hi-Res Audio certification, and 40-hour battery life.",
+              "price": 1878.15
+            },
+            {
+              "name": "Green, Ramos and Edwards Headphones WX5503",
+              "description": "Enjoy immersive sound with the Green, Ramos and Edwards WX5503 over-ear headphones featuring ANC, Hi-Res Audio certification, and 40-hour battery life.",
+              "price": 1042.24
+            }
+          ]
+        }
+      }
+    },
+    {
+      "question": "I’m looking for a phone with at least a 50MP camera and an AMOLED display.",
+      "answers": {
+        "ada-002": {
+          "gpt 3.5 turbo": [
+            {
+              "name": "Phillips-Miller Smartphone AL6850",
+              "description": "Experience lightning-fast 5G connectivity with the Phillips-Miller AL6850 smartphone. Equipped with a 108MP camera, 8K video, and a vibrant AMOLED display.",
+              "price": 912.93
+            },
+            {
+              "name": "Day Ltd Smartphone SO9704",
+              "description": "Experience lightning-fast 5G connectivity with the Day Ltd SO9704 smartphone. Equipped with a 108MP camera, 8K video, and a vibrant AMOLED display.",
+              "price": 562
+            },
+            {
+              "name": "Thompson LLC Smartphone PN480",
+              "description": "Experience lightning-fast 5G connectivity with the Thompson LLC PN480 smartphone. Equipped with a 108MP camera, 8K video, and a vibrant AMOLED display.",
+              "price": 2024.53
+            },
+            {
+              "name": "Martinez-Allen Smartphone LF5584",
+              "description": "Experience lightning-fast 5G connectivity with the Martinez-Allen LF5584 smartphone. Equipped with a 108MP camera, 8K video, and a vibrant AMOLED display.",
+              "price": 1697.14
+            },
+            {
+              "name": "Matthews-Blake Smartphone GW4396",
+              "description": "Experience lightning-fast 5G connectivity with the Matthews-Blake GW4396 smartphone. Equipped with a 108MP camera, 8K video, and a vibrant AMOLED display.",
+              "price": 2873.74
+            }
+          ],
+          "gpt 4": [
+            {
+              "name": "Phillips-Miller Smartphone AL6850",
+              "description": "Experience lightning-fast 5G connectivity with the Phillips-Miller AL6850 smartphone. Equipped with a 108MP camera, 8K video, and a vibrant AMOLED display.",
+              "price": 912.93
+            },
+            {
+              "name": "Day Ltd Smartphone SO9704",
+              "description": "Experience lightning-fast 5G connectivity with the Day Ltd SO9704 smartphone. Equipped with a 108MP camera, 8K video, and a vibrant AMOLED display.",
+              "price": 562
+            },
+            {
+              "name": "Thompson LLC Smartphone PN480",
+              "description": "Experience lightning-fast 5G connectivity with the Thompson LLC PN480 smartphone. Equipped with a 108MP camera, 8K video, and a vibrant AMOLED display.",
+              "price": 2024.53
+            },
+            {
+              "name": "Martinez-Allen Smartphone LF5584",
+              "description": "Experience lightning-fast 5G connectivity with the Martinez-Allen LF5584 smartphone. Equipped with a 108MP camera, 8K video, and a vibrant AMOLED display.",
+              "price": 1697.14
+            },
+            {
+              "name": "Matthews-Blake Smartphone GW4396",
+              "description": "Experience lightning-fast 5G connectivity with the Matthews-Blake GW4396 smartphone. Equipped with a 108MP camera, 8K video, and a vibrant AMOLED display.",
+              "price": 2873.74
+            }
+          ],
+          "gpt 4o": [
+            {
+              "name": "Phillips-Miller Smartphone AL6850",
+              "description": "Experience lightning-fast 5G connectivity with the Phillips-Miller AL6850 smartphone. Equipped with a 108MP camera, 8K video, and a vibrant AMOLED display.",
+              "price": 912.93
+            },
+            {
+              "name": "Day Ltd Smartphone SO9704",
+              "description": "Experience lightning-fast 5G connectivity with the Day Ltd SO9704 smartphone. Equipped with a 108MP camera, 8K video, and a vibrant AMOLED display.",
+              "price": 562
+            },
+            {
+              "name": "Thompson LLC Smartphone PN480",
+              "description": "Experience lightning-fast 5G connectivity with the Thompson LLC PN480 smartphone. Equipped with a 108MP camera, 8K video, and a vibrant AMOLED display.",
+              "price": 2024.53
+            },
+            {
+              "name": "Martinez-Allen Smartphone LF5584",
+              "description": "Experience lightning-fast 5G connectivity with the Martinez-Allen LF5584 smartphone. Equipped with a 108MP camera, 8K video, and a vibrant AMOLED display.",
+              "price": 1697.14
+            },
+            {
+              "name": "Matthews-Blake Smartphone GW4396",
+              "description": "Experience lightning-fast 5G connectivity with the Matthews-Blake GW4396 smartphone. Equipped with a 108MP camera, 8K video, and a vibrant AMOLED display.",
+              "price": 2873.74
+            }
+          ]
+        },
+        "3-large": {
+          "gpt 3.5 turbo": [
+            {
+              "name": "Liu-Paul Smartphone OP808",
+              "description": "Experience lightning-fast 5G connectivity with the Liu-Paul OP808 smartphone. Equipped with a 108MP camera, 8K video, and a vibrant AMOLED display.",
+              "price": 2313.74
+            }
+          ],
+          "gpt 4": [
+            {
+              "name": "Liu-Paul Smartphone OP808",
+              "description": "Experience lightning-fast 5G connectivity with the Liu-Paul OP808 smartphone. Equipped with a 108MP camera, 8K video, and a vibrant AMOLED display.",
+              "price": 2313.74
+            }
+          ],
+          "gpt 4o": [
+            {
+              "name": "Liu-Paul Smartphone OP808",
+              "description": "Experience lightning-fast 5G connectivity with the Liu-Paul OP808 smartphone. Equipped with a 108MP camera, 8K video, and a vibrant AMOLED display.",
+              "price": 2313.74
+            }
+          ]
+        },
+        "gemini-001": {
+          "gemini 1.5 pro": [
+            {
+              "name": "Smith-Fox Smartphone EU5042",
+              "description": "Experience lightning-fast 5G connectivity with the Smith-Fox EU5042 smartphone. Equipped with a 108MP camera, 8K video, and a vibrant AMOLED display.",
+              "price": 1578.23
+            },
+            {
+              "name": "Nolan-Sanchez Smartphone OS7726",
+              "description": "Experience lightning-fast 5G connectivity with the Nolan-Sanchez OS7726 smartphone. Equipped with a 108MP camera, 8K video, and a vibrant AMOLED display.",
+              "price": 1493.89
+            },
+            {
+              "name": "Phillips-Miller Smartphone AL6850",
+              "description": "Experience lightning-fast 5G connectivity with the Phillips-Miller AL6850 smartphone. Equipped with a 108MP camera, 8K video, and a vibrant AMOLED display.",
+              "price": 912.93
+            },
+            {
+              "name": "Melton LLC Smartphone AH7255",
+              "description": "Experience lightning-fast 5G connectivity with the Melton LLC AH7255 smartphone. Equipped with a 108MP camera, 8K video, and a vibrant AMOLED display.",
+              "price": 1959.48
+            }
+          ]
+        }
+      }
+    },
+    {
+      "question": "Which wireless and silent mouse would you recommend for office use?",
+      "answers": {
+        "ada-002": {
+          "gpt 3.5 turbo": [
+            {
+              "name": "Miller-Cole Mouse SN7706",
+              "description": "Navigate in silence with the Miller-Cole SN7706 wireless mouse. It offers ergonomic design, adjustable DPI up to 16000, and ultra-low latency response.",
+              "price": 1834.1
+            },
+            {
+              "name": "Collins Ltd Mouse WA5054",
+              "description": "Navigate in silence with the Collins Ltd WA5054 wireless mouse. It offers ergonomic design, adjustable DPI up to 16000, and ultra-low latency response.",
+              "price": 1163.01
+            },
+            {
+              "name": "Walsh, Carey and Bell Mouse WM1455",
+              "description": "Navigate in silence with the Walsh, Carey and Bell WM1455 wireless mouse. It offers ergonomic design, adjustable DPI up to 16000, and ultra-low latency response.",
+              "price": 67.86
+            },
+            {
+              "name": "Ward, Smith and Fisher Mouse CF9021",
+              "description": "Navigate in silence with the Ward, Smith and Fisher CF9021 wireless mouse. It offers ergonomic design, adjustable DPI up to 16000, and ultra-low latency response.",
+              "price": 2312.84
+            },
+            {
+              "name": "Bonilla-Carlson Mouse LD5059",
+              "description": "Navigate in silence with the Bonilla-Carlson LD5059 wireless mouse. It offers ergonomic design, adjustable DPI up to 16000, and ultra-low latency response.",
+              "price": 2539.22
+            }
+          ],
+          "gpt 4": [
+            {
+              "name": "Miller-Cole Mouse SN7706",
+              "description": "Navigate in silence with the Miller-Cole SN7706 wireless mouse. It offers ergonomic design, adjustable DPI up to 16000, and ultra-low latency response.",
+              "price": 1834.1
+            },
+            {
+              "name": "Collins Ltd Mouse WA5054",
+              "description": "Navigate in silence with the Collins Ltd WA5054 wireless mouse. It offers ergonomic design, adjustable DPI up to 16000, and ultra-low latency response.",
+              "price": 1163.01
+            },
+            {
+              "name": "Walsh, Carey and Bell Mouse WM1455",
+              "description": "Navigate in silence with the Walsh, Carey and Bell WM1455 wireless mouse. It offers ergonomic design, adjustable DPI up to 16000, and ultra-low latency response.",
+              "price": 67.86
+            },
+            {
+              "name": "Ward, Smith and Fisher Mouse CF9021",
+              "description": "Navigate in silence with the Ward, Smith and Fisher CF9021 wireless mouse. It offers ergonomic design, adjustable DPI up to 16000, and ultra-low latency response.",
+              "price": 2312.84
+            },
+            {
+              "name": "Bonilla-Carlson Mouse LD5059",
+              "description": "Navigate in silence with the Bonilla-Carlson LD5059 wireless mouse. It offers ergonomic design, adjustable DPI up to 16000, and ultra-low latency response.",
+              "price": 2539.22
+            }
+          ],
+          "gpt 4o": [
+            {
+              "name": "Miller-Cole Mouse SN7706",
+              "description": "Navigate in silence with the Miller-Cole SN7706 wireless mouse. It offers ergonomic design, adjustable DPI up to 16000, and ultra-low latency response.",
+              "price": 1834.1
+            },
+            {
+              "name": "Collins Ltd Mouse WA5054",
+              "description": "Navigate in silence with the Collins Ltd WA5054 wireless mouse. It offers ergonomic design, adjustable DPI up to 16000, and ultra-low latency response.",
+              "price": 1163.01
+            },
+            {
+              "name": "Walsh, Carey and Bell Mouse WM1455",
+              "description": "Navigate in silence with the Walsh, Carey and Bell WM1455 wireless mouse. It offers ergonomic design, adjustable DPI up to 16000, and ultra-low latency response.",
+              "price": 67.86
+            },
+            {
+              "name": "Ward, Smith and Fisher Mouse CF9021",
+              "description": "Navigate in silence with the Ward, Smith and Fisher CF9021 wireless mouse. It offers ergonomic design, adjustable DPI up to 16000, and ultra-low latency response.",
+              "price": 2312.84
+            },
+            {
+              "name": "Bonilla-Carlson Mouse LD5059",
+              "description": "Navigate in silence with the Bonilla-Carlson LD5059 wireless mouse. It offers ergonomic design, adjustable DPI up to 16000, and ultra-low latency response.",
+              "price": 2539.22
+            }
+          ]
+        },
+        "3-large": {
+          "gpt 3.5 turbo": [
+            {
+              "name": "Little Group Mouse LIT-056",
+              "description": "This mouse features Silent clicks, Ergonomic design, Wireless. Designed for performance and reliability in everyday tasks.",
+              "price": 2473.9
+            },
+            {
+              "name": "Wilson PLC Mouse WIL-515",
+              "description": "This mouse features Silent clicks, Rechargeable battery, Wireless. Designed for performance and reliability in everyday tasks.",
+              "price": 2162.33
+            },
+            {
+              "name": "Smith, Church and Bird Mouse SMI-529",
+              "description": "This mouse features Wireless, Ergonomic design, Silent clicks. Designed for performance and reliability in everyday tasks.",
+              "price": 1924.98
+            },
+            {
+              "name": "Villegas PLC Mouse VIL-132",
+              "description": "This mouse features Silent clicks, Wireless, Ergonomic design. Designed for performance and reliability in everyday tasks.",
+              "price": 2565.84
+            },
+            {
+              "name": "King-Wright Mouse KIN-349",
+              "description": "This mouse features Ergonomic design, Wireless, Silent clicks. Designed for performance and reliability in everyday tasks.",
+              "price": 2699.93
+            }
+          ],
+          "gpt 4": [
+            {
+              "name": "Little Group Mouse LIT-056",
+              "description": "This mouse features Silent clicks, Ergonomic design, Wireless. Designed for performance and reliability in everyday tasks.",
+              "price": 2473.9
+            },
+            {
+              "name": "Wilson PLC Mouse WIL-515",
+              "description": "This mouse features Silent clicks, Rechargeable battery, Wireless. Designed for performance and reliability in everyday tasks.",
+              "price": 2162.33
+            },
+            {
+              "name": "Smith, Church and Bird Mouse SMI-529",
+              "description": "This mouse features Wireless, Ergonomic design, Silent clicks. Designed for performance and reliability in everyday tasks.",
+              "price": 1924.98
+            },
+            {
+              "name": "Villegas PLC Mouse VIL-132",
+              "description": "This mouse features Silent clicks, Wireless, Ergonomic design. Designed for performance and reliability in everyday tasks.",
+              "price": 2565.84
+            },
+            {
+              "name": "King-Wright Mouse KIN-349",
+              "description": "This mouse features Ergonomic design, Wireless, Silent clicks. Designed for performance and reliability in everyday tasks.",
+              "price": 2699.93
+            }
+          ],
+          "gpt 4o": [
+            {
+              "name": "Little Group Mouse LIT-056",
+              "description": "This mouse features Silent clicks, Ergonomic design, Wireless. Designed for performance and reliability in everyday tasks.",
+              "price": 2473.9
+            },
+            {
+              "name": "Wilson PLC Mouse WIL-515",
+              "description": "This mouse features Silent clicks, Rechargeable battery, Wireless. Designed for performance and reliability in everyday tasks.",
+              "price": 2162.33
+            },
+            {
+              "name": "Smith, Church and Bird Mouse SMI-529",
+              "description": "This mouse features Wireless, Ergonomic design, Silent clicks. Designed for performance and reliability in everyday tasks.",
+              "price": 1924.98
+            },
+            {
+              "name": "Villegas PLC Mouse VIL-132",
+              "description": "This mouse features Silent clicks, Wireless, Ergonomic design. Designed for performance and reliability in everyday tasks.",
+              "price": 2565.84
+            },
+            {
+              "name": "King-Wright Mouse KIN-349",
+              "description": "This mouse features Ergonomic design, Wireless, Silent clicks. Designed for performance and reliability in everyday tasks.",
+              "price": 2699.93
+            }
+          ]
+        },
+        "gemini-001": {
+          "gemini 1.5 pro": [
+            {
+              "name": "Taylor-Monroe Mouse WM7756",
+              "description": "Navigate in silence with the Taylor-Monroe WM7756 wireless mouse. It offers ergonomic design, adjustable DPI up to 16000, and ultra-low latency response.",
+              "price": 2176.81
+            },
+            {
+              "name": "Richard, Madden and Vasquez Mouse LT6777",
+              "description": "Navigate in silence with the Richard, Madden and Vasquez LT6777 wireless mouse. It offers ergonomic design, adjustable DPI up to 16000, and ultra-low latency response.",
+              "price": 2442.82
+            },
+            {
+              "name": "Whitehead, Clark and Webb Mouse TL4175",
+              "description": "Navigate in silence with the Whitehead, Clark and Webb TL4175 wireless mouse. It offers ergonomic design, adjustable DPI up to 16000, and ultra-low latency response.",
+              "price": 2209.05
+            },
+            {
+              "name": "Cole, Wilson and Johnston Mouse WK5087",
+              "description": "Navigate in silence with the Cole, Wilson and Johnston WK5087 wireless mouse. It offers ergonomic design, adjustable DPI up to 16000, and ultra-low latency response.",
+              "price": 2187.38
+            },
+            {
+              "name": "Warren-Fernandez Mouse SK6375",
+              "description": "Navigate in silence with the Warren-Fernandez SK6375 wireless mouse. It offers ergonomic design, adjustable DPI up to 16000, and ultra-low latency response.",
+              "price": 387.33
+            }
+          ]
+        }
+      }
+    }
+  ]
+}
