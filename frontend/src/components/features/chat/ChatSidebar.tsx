@@ -36,7 +36,7 @@ export default function ChatSidebar({
   }
 
   return (
-    <Card className="w-full sm:w-1/4 flex flex-col h-full max-h-[35vh] sm:max-h-[90vh]">
+    <Card className="w-full sm:w-1/4 flex flex-col h-full max-h-[35vh] sm:max-h-[100vh]">
       <CardHeader className="text-lg font-bold">Chats</CardHeader>
       <div className="flex flex-col flex-grow overflow-hidden">
         <ScrollArea className="flex-1 px-4 py-3 sm:py-0">
