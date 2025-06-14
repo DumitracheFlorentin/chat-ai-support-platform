@@ -2,8 +2,12 @@ import fs from 'fs/promises'
 import path from 'path'
 
 import { PrismaClient } from '@prisma/client'
-import * as openaiService from '../services/partners/openai.service'
-import pinecone from '../services/partners/pinecone.service'
+import {
+  pinecone,
+  pineconeIndexes,
+} from '../services/partners/pinecone.service'
+import { GoogleGenerativeAIEmbeddings } from '@langchain/google-genai'
+import { OpenAIEmbeddings } from '@langchain/openai'
 
 // Create a single PrismaClient instance to be reused
 const prisma = new PrismaClient({
@@ -14,6 +18,7 @@ interface ImportConfig {
   indexName: string
   embeddingModel: string
   dimension?: number
+  provider: 'openai' | 'gemini'
 }
 
 interface Product {
@@ -41,16 +46,24 @@ async function processBatch(
 }
 
 const configs: ImportConfig[] = [
-  {
-    indexName: 'openai-ada-002-v2',
-    embeddingModel: 'text-embedding-ada-002',
-    dimension: 1536,
-  },
   // {
-  //   indexName: 'electronics-3-large-v2',
+  //   indexName: 'ada002',
+  //   embeddingModel: 'text-embedding-ada-002',
+  //   dimension: 1536,
+  //   provider: 'openai',
+  // },
+  // {
+  //   indexName: 'embedding3Large',
   //   embeddingModel: 'text-embedding-3-large',
   //   dimension: 3072,
+  //   provider: 'openai',
   // },
+  {
+    indexName: 'gemini001',
+    embeddingModel: 'models/embedding-001',
+    dimension: 768,
+    provider: 'gemini',
+  },
 ]
 
 runAllImports()
@@ -77,17 +90,37 @@ async function importProducts(config: ImportConfig) {
     const filePath = path.resolve(
       __dirname,
       'data',
-      'electronics_products_100.json'
+      'electronics_products_detailed.json'
     )
     const file = await fs.readFile(filePath, 'utf-8')
     const products = JSON.parse(file)
 
-    const index = pinecone.index(config.indexName)
+    const index =
+      pineconeIndexes[config.indexName as keyof typeof pineconeIndexes]
+
+    // Choose embedding model based on provider
+    let embedder: GoogleGenerativeAIEmbeddings | OpenAIEmbeddings
+    if (config.provider === 'gemini') {
+      embedder = new GoogleGenerativeAIEmbeddings({
+        modelName: config.embeddingModel,
+        apiKey: process.env.GOOGLE_API_KEY,
+      })
+    } else {
+      embedder = new OpenAIEmbeddings({
+        modelName: config.embeddingModel,
+        openAIApiKey: process.env.OPENAI_API_KEY,
+      })
+    }
 
     // Process products in batches of 100 with controlled concurrency
     await processBatch(products, 100, async (product) => {
       try {
-        const isDuplicate = await checkDuplicate(product, index, config)
+        const isDuplicate = await checkDuplicate(
+          product,
+          index,
+          config,
+          embedder
+        )
         if (isDuplicate) {
           skippedCount++
           return
@@ -102,9 +135,8 @@ async function importProducts(config: ImportConfig) {
           },
         })
 
-        const vector = await openaiService.generateEmbedding(
-          `${created.name} ${created.description}`,
-          config.embeddingModel
+        const vector = await embedder.embedQuery(
+          product.description + ' ' + product.name
         )
 
         await index.upsert([
@@ -152,7 +184,8 @@ async function checkDuplicate(
     price: number
   },
   index: any,
-  config: ImportConfig
+  config: ImportConfig,
+  embedder: GoogleGenerativeAIEmbeddings | OpenAIEmbeddings
 ) {
   // Check in relational database
   const existingProduct = await prisma.product.findFirst({
@@ -164,9 +197,8 @@ async function checkDuplicate(
   })
 
   // Check in vector database using vector query with high similarity threshold
-  const vector = await openaiService.generateEmbedding(
-    `${product.name} ${product.description}`,
-    config.embeddingModel
+  const vector = await embedder.embedQuery(
+    product.description + ' ' + product.name
   )
 
   const queryResponse = await index.query({
@@ -195,9 +227,8 @@ async function checkDuplicate(
     console.log(
       `Product exists in relational DB but not in vector DB: ${product.name}`
     )
-    const vector = await openaiService.generateEmbedding(
-      `${existingProduct.name} ${existingProduct.description}`,
-      config.embeddingModel
+    const vector = await embedder.embedQuery(
+      existingProduct.description + ' ' + existingProduct.name
     )
 
     await index.upsert([

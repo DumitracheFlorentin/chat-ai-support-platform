@@ -20,6 +20,12 @@ import {
   Select,
 } from '@/components/ui/select'
 
+const EMBEDDING_MODELS = [
+  { id: 'ada002', name: 'Ada-002', provider: 'openai' },
+  { id: 'embedding3Large', name: 'Embedding-3-Large', provider: 'openai' },
+  { id: 'gemini001', name: 'Gemini Embedding', provider: 'gemini' },
+]
+
 export default function ChatWindow({
   setSelectedChat,
   selectedChat,
@@ -37,6 +43,22 @@ export default function ChatWindow({
   const [showScrollButton, setShowScrollButton] = useState(false)
   const [isSending, setIsSending] = useState(false)
   const [message, setMessage] = useState('')
+
+  // Filter AI models based on selected embedding model
+  const embeddingProvider = EMBEDDING_MODELS.find(
+    (e) => e.id === selectedEmbeddingModel
+  )?.provider
+  const filteredModels = AI_MODELS.filter(
+    (m) => m.provider === embeddingProvider
+  )
+
+  useEffect(() => {
+    // If the current selected model is not compatible, reset to first compatible
+    if (!filteredModels.find((m) => m.id === selectedModel)) {
+      setSelectedModel(filteredModels[0]?.id || '')
+    }
+    // eslint-disable-next-line
+  }, [selectedEmbeddingModel])
 
   const sendMessageHandler = async () => {
     if (!message.trim() || !selectedChat) return
@@ -155,17 +177,20 @@ export default function ChatWindow({
             >
               <SelectTrigger className="w-[180px]">
                 <SelectValue placeholder="Select embedding model">
-                  {selectedEmbeddingModel === 'ada002'
-                    ? 'Ada-002'
-                    : 'Embedding-3-Large'}
+                  {
+                    EMBEDDING_MODELS.find(
+                      (e) => e.id === selectedEmbeddingModel
+                    )?.name
+                  }
                 </SelectValue>
               </SelectTrigger>
               <SelectContent>
                 <SelectGroup>
-                  <SelectItem value="ada002">Ada-002</SelectItem>
-                  <SelectItem value="embedding3Large">
-                    Embedding-3-Large
-                  </SelectItem>
+                  {EMBEDDING_MODELS.map((embedding) => (
+                    <SelectItem key={embedding.id} value={embedding.id}>
+                      {embedding.name}
+                    </SelectItem>
+                  ))}
                 </SelectGroup>
               </SelectContent>
             </Select>
@@ -173,12 +198,12 @@ export default function ChatWindow({
             <Select value={selectedModel} onValueChange={setSelectedModel}>
               <SelectTrigger className="w-[160px]">
                 <SelectValue placeholder="Select a model">
-                  {AI_MODELS.find((m) => m.id === selectedModel)?.name}
+                  {filteredModels.find((m) => m.id === selectedModel)?.name}
                 </SelectValue>
               </SelectTrigger>
               <SelectContent>
                 <SelectGroup>
-                  {AI_MODELS.map((model) => (
+                  {filteredModels.map((model) => (
                     <SelectItem key={model.id} value={model.id}>
                       {model.name}
                     </SelectItem>

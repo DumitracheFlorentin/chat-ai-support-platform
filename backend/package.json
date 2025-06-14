@@ -19,6 +19,7 @@
   "author": "Florentin-Cristian Dumitrache",
   "license": "ISC",
   "dependencies": {
+    "@langchain/google-genai": "^0.2.12",
     "@langchain/openai": "^0.5.13",
     "@pinecone-database/pinecone": "^5.1.2",
     "@prisma/client": "^6.8.2",

@@ -1,5 +1,9 @@
 import { ChatOpenAI } from '@langchain/openai'
 import { OpenAIEmbeddings } from '@langchain/openai'
+import {
+  ChatGoogleGenerativeAI,
+  GoogleGenerativeAIEmbeddings,
+} from '@langchain/google-genai'
 import dotenv from 'dotenv'
 
 dotenv.config()
@@ -7,6 +11,10 @@ dotenv.config()
 // OpenAI API Key validation
 if (!process.env.OPENAI_API_KEY) {
   throw new Error('OPENAI_API_KEY is not set in environment variables')
+}
+// Gemini API Key validation
+if (!process.env.GOOGLE_API_KEY) {
+  throw new Error('GOOGLE_API_KEY is not set in environment variables')
 }
 
 // Chat Models Configuration
@@ -34,6 +42,12 @@ export const chatModels = {
     temperature: 0.7,
     openAIApiKey: process.env.OPENAI_API_KEY,
   }),
+
+  geminiPro: new ChatGoogleGenerativeAI({
+    model: 'gemini-1.5-pro',
+    apiKey: process.env.GOOGLE_API_KEY,
+    temperature: 0.7,
+  }),
 }
 
 // Embeddings Models Configuration
@@ -46,6 +60,11 @@ export const embeddingModels = {
   embedding3Large: new OpenAIEmbeddings({
     modelName: 'text-embedding-3-large',
     openAIApiKey: process.env.OPENAI_API_KEY,
+  }),
+
+  gemini001: new GoogleGenerativeAIEmbeddings({
+    modelName: 'models/embedding-001',
+    apiKey: process.env.GOOGLE_API_KEY,
   }),
 }
 

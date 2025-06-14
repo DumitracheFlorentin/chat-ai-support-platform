@@ -3,9 +3,9 @@ import {
   getEmbeddingModel,
 } from '../../config/ai/langchain.config'
 import { HumanMessage, SystemMessage } from '@langchain/core/messages'
-import { pineconeIndexes, PineconeIndexType } from './pinecone.service'
+import { pineconeIndexes } from './pinecone.service'
 
-export type EmbeddingModelType = 'ada002' | 'embedding3Large'
+export type EmbeddingModelType = 'ada002' | 'embedding3Large' | 'gemini001'
 
 export async function generateEmbedding(
   text: string,
@@ -112,7 +112,12 @@ ${contextJson}`,
     },
   ]
 
-  const response = await generateChatCompletion(messages, modelName)
-  console.log('LLM Response:', response)
-  return response
+  try {
+    const response = await generateChatCompletion(messages, modelName)
+    console.log('LLM Response:', response)
+    return response
+  } catch (error) {
+    console.error('Error from LLM:', error)
+    throw error
+  }
 }

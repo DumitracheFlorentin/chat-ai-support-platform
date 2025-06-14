@@ -16,6 +16,6 @@ export interface Chat {
 export interface AIModel {
   id: string
   name: string
-  provider: 'openai'
+  provider: 'openai' | 'gemini'
   temperature: number
 }

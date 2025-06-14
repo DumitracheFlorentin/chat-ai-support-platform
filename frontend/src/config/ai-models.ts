@@ -25,6 +25,12 @@ export const AI_MODELS: AIModel[] = [
     provider: 'openai',
     temperature: 0.7,
   },
+  {
+    id: 'geminiPro',
+    name: 'Gemini 1.5 Pro',
+    provider: 'gemini',
+    temperature: 0.7,
+  },
 ]
 
 export function getModelById(id: string): AIModel | undefined {
