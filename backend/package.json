@@ -1,6 +1,6 @@
 {
   "name": "backend",
-  "version": "1.8.0",
+  "version": "1.9.0",
   "description": "",
   "main": "dist/index.js",
   "engines": {
@@ -11,7 +11,9 @@
     "dev": "ts-node-dev --respawn --transpile-only --poll src/index.ts",
     "build": "tsc",
     "start": "node dist/index.js",
-    "import:electronics": "ts-node src/scripts/import-electronics.ts"
+    "import:electronics": "ts-node src/scripts/import-electronics.ts",
+    "compare:models": "ts-node src/scripts/compare-models-performance.ts",
+    "analyze:storage": "ts-node src/scripts/calculate-storage.ts"
   },
   "keywords": [],
   "author": "Florentin-Cristian Dumitrache",

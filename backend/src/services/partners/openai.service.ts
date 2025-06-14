@@ -9,9 +9,12 @@ const openai = new OpenAI({
   apiKey: process.env.OPENAI_API_KEY!,
 })
 
-export async function generateEmbedding(text: string): Promise<number[]> {
+export async function generateEmbedding(
+  text: string,
+  model: string = 'text-embedding-ada-002'
+): Promise<number[]> {
   const res = await openai.embeddings.create({
-    model: 'text-embedding-ada-002',
+    model,
     input: text,
   })
 
