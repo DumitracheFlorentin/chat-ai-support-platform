@@ -33,6 +33,7 @@ export default function ChatWindow({
   const messagesEndRef = useRef<HTMLDivElement>(null)
 
   const [selectedModel, setSelectedModel] = useState(getDefaultModel().id)
+  const [selectedEmbeddingModel, setSelectedEmbeddingModel] = useState('ada002')
   const [showScrollButton, setShowScrollButton] = useState(false)
   const [isSending, setIsSending] = useState(false)
   const [message, setMessage] = useState('')
@@ -73,7 +74,11 @@ export default function ChatWindow({
         `/chats/${selectedChat.id}/messages`,
         {
           method: 'POST',
-          body: JSON.stringify({ question: message, model: selectedModel }),
+          body: JSON.stringify({
+            question: message,
+            model: selectedModel,
+            embeddingModel: selectedEmbeddingModel,
+          }),
           headers: { 'Content-Type': 'application/json' },
         }
       )
@@ -138,27 +143,50 @@ export default function ChatWindow({
   return (
     <Card className="w-full sm:w-3/4 flex flex-col justify-between">
       <CardHeader className="px-4">
-        <div className="flex justify-between items-center">
+        <div className="flex justify-between items-center gap-4">
           <div className="text-lg font-semibold">
             {selectedChat.title || 'Chat'}
           </div>
 
-          <Select value={selectedModel} onValueChange={setSelectedModel}>
-            <SelectTrigger className="w-[160px]">
-              <SelectValue placeholder="Select a model">
-                {AI_MODELS.find((m) => m.id === selectedModel)?.name}
-              </SelectValue>
-            </SelectTrigger>
-            <SelectContent>
-              <SelectGroup>
-                {AI_MODELS.map((model) => (
-                  <SelectItem key={model.id} value={model.id}>
-                    {model.name}
+          <div className="flex gap-4">
+            <Select
+              value={selectedEmbeddingModel}
+              onValueChange={setSelectedEmbeddingModel}
+            >
+              <SelectTrigger className="w-[180px]">
+                <SelectValue placeholder="Select embedding model">
+                  {selectedEmbeddingModel === 'ada002'
+                    ? 'Ada-002'
+                    : 'Embedding-3-Large'}
+                </SelectValue>
+              </SelectTrigger>
+              <SelectContent>
+                <SelectGroup>
+                  <SelectItem value="ada002">Ada-002</SelectItem>
+                  <SelectItem value="embedding3Large">
+                    Embedding-3-Large
                   </SelectItem>
-                ))}
-              </SelectGroup>
-            </SelectContent>
-          </Select>
+                </SelectGroup>
+              </SelectContent>
+            </Select>
+
+            <Select value={selectedModel} onValueChange={setSelectedModel}>
+              <SelectTrigger className="w-[160px]">
+                <SelectValue placeholder="Select a model">
+                  {AI_MODELS.find((m) => m.id === selectedModel)?.name}
+                </SelectValue>
+              </SelectTrigger>
+              <SelectContent>
+                <SelectGroup>
+                  {AI_MODELS.map((model) => (
+                    <SelectItem key={model.id} value={model.id}>
+                      {model.name}
+                    </SelectItem>
+                  ))}
+                </SelectGroup>
+              </SelectContent>
+            </Select>
+          </div>
         </div>
       </CardHeader>
 
@@ -196,7 +224,8 @@ export default function ChatWindow({
                 if (products.length === 0) {
                   content = (
                     <div className="text-muted-foreground">
-                      No products found
+                      No products found. Please try to be more concise or
+                      provide more details about what you want.
                     </div>
                   )
                 } else {

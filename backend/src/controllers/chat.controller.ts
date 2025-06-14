@@ -55,7 +55,7 @@ export async function getAllChats(req: Request, res: Response) {
 
 export async function chatWithAI(req: Request, res: Response) {
   try {
-    const { question, model } = req.body
+    const { question, model, embeddingModel } = req.body
 
     if (!question || typeof question !== 'string') {
       res
@@ -64,7 +64,11 @@ export async function chatWithAI(req: Request, res: Response) {
       return
     }
 
-    const answer = await chatService.askWithContext(question, model)
+    const answer = await chatService.askWithContext(
+      question,
+      model,
+      embeddingModel
+    )
 
     const savedAnswer = await messageService.saveMessage(
       req.params.id,
@@ -74,7 +78,6 @@ export async function chatWithAI(req: Request, res: Response) {
 
     res.status(200).json({ success: true, answer: savedAnswer })
   } catch (error) {
-    console.log(error)
     res
       .status(500)
       .json({ success: false, message: 'Failed to process question' })

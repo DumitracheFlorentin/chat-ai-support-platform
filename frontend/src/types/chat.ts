@@ -16,7 +16,6 @@ export interface Chat {
 export interface AIModel {
   id: string
   name: string
-  provider: 'openai' | 'gemini'
-  maxTokens?: number
-  temperature?: number
+  provider: 'openai'
+  temperature: number
 }
