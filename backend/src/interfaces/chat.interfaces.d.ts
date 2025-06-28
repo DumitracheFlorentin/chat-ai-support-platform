@@ -16,6 +16,8 @@ export interface AIModel {
 export interface ChatWithAIRequest {
   question: string
   model: string
+  language?: string
+  embeddingModel?: string
 }
 
 export interface ChatMessage {
@@ -23,6 +25,7 @@ export interface ChatMessage {
   role: 'user' | 'assistant'
   content: string
   createdAt: string
+  language?: string
 }
 
 export interface Chat {
@@ -31,4 +34,13 @@ export interface Chat {
   createdAt: string
   updatedAt: string
   messages: ChatMessage[]
+  preferredLanguage?: string
+}
+
+export interface Language {
+  code: string
+  name: string
+  nativeName: string
+  modelName: string
+  isRTL: boolean
 }

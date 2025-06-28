@@ -31,6 +31,6 @@ export function getModelById(id: string): AIModel | undefined {
   return AI_MODELS.find((model) => model.id === id)
 }
 
-export function getDefaultModel(): AIModel {
+export const getDefaultModel = (): AIModel => {
   return AI_MODELS[0]
 }

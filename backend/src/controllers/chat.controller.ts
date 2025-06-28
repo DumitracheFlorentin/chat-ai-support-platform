@@ -2,6 +2,7 @@ import { Request, Response } from 'express'
 
 import * as messageService from '../services/messages.service'
 import * as chatService from '../services/chat.service'
+import { getLanguageByCode, getDefaultLanguage } from '../config/languages'
 
 export async function getAllMessages(req: Request, res: Response) {
   try {
@@ -15,9 +16,14 @@ export async function getAllMessages(req: Request, res: Response) {
 export async function saveMessageByChatId(req: Request, res: Response) {
   try {
     const { id } = req.params
-    const { question } = req.body
+    const { question, language } = req.body
 
-    const savedMessage = await messageService.saveMessage(id, 'user', question)
+    const savedMessage = await messageService.saveMessage(
+      id,
+      'user',
+      question,
+      language
+    )
 
     res.status(200).json({ success: true, message: savedMessage })
   } catch (error) {
@@ -55,7 +61,7 @@ export async function getAllChats(req: Request, res: Response) {
 
 export async function chatWithAI(req: Request, res: Response) {
   try {
-    const { question, model, embeddingModel } = req.body
+    const { question, model, embeddingModel, language } = req.body
 
     if (!question || typeof question !== 'string') {
       res
@@ -64,16 +70,24 @@ export async function chatWithAI(req: Request, res: Response) {
       return
     }
 
+    // Validate and set default language
+    const targetLanguage =
+      language && getLanguageByCode(language)
+        ? language
+        : getDefaultLanguage().code
+
     const answer = await chatService.askWithContext(
       question,
       model,
-      embeddingModel
+      embeddingModel,
+      targetLanguage
     )
 
     const savedAnswer = await messageService.saveMessage(
       req.params.id,
       'assistant',
-      answer
+      answer,
+      targetLanguage
     )
 
     res.status(200).json({ success: true, answer: savedAnswer })

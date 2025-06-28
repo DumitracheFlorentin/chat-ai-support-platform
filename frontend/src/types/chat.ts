@@ -3,6 +3,7 @@ export interface ChatMessage {
   role: 'user' | 'assistant'
   content: string
   createdAt: string
+  language?: string
 }
 
 export interface Chat {
@@ -11,6 +12,7 @@ export interface Chat {
   createdAt: string
   updatedAt: string
   messages: ChatMessage[]
+  preferredLanguage?: string
 }
 
 export interface AIModel {
@@ -18,4 +20,12 @@ export interface AIModel {
   name: string
   provider: 'openai' | 'gemini'
   temperature: number
+}
+
+export interface Language {
+  code: string
+  name: string
+  nativeName: string
+  modelName: string
+  isRTL: boolean
 }

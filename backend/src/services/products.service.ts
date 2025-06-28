@@ -1,6 +1,6 @@
 import * as productsInterfaces from '../interfaces/products.interfaces'
 import * as openaiServices from './partners/openai.service'
-import pinecone from './partners/pinecone.service'
+import { pinecone } from './partners/pinecone.service'
 import prisma from '../lib/prisma'
 
 export async function createProduct(

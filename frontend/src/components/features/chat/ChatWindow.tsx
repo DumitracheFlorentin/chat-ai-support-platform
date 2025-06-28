@@ -6,6 +6,7 @@ import { toast } from 'sonner'
 
 import apiRequest from '@/api/apiRequest'
 import { AI_MODELS, getDefaultModel } from '@/config/ai-models'
+import { SUPPORTED_LANGUAGES, getDefaultLanguage } from '@/config/languages'
 
 import { ScrollArea } from '@/components/ui/scroll-area'
 import { Card, CardHeader } from '@/components/ui/card'
@@ -40,6 +41,9 @@ export default function ChatWindow({
 
   const [selectedModel, setSelectedModel] = useState(getDefaultModel().id)
   const [selectedEmbeddingModel, setSelectedEmbeddingModel] = useState('ada002')
+  const [selectedLanguage, setSelectedLanguage] = useState(
+    getDefaultLanguage().code
+  )
   const [showScrollButton, setShowScrollButton] = useState(false)
   const [isSending, setIsSending] = useState(false)
   const [message, setMessage] = useState('')
@@ -70,7 +74,10 @@ export default function ChatWindow({
         `/chats/${selectedChat.id}/messages/question`,
         {
           method: 'POST',
-          body: JSON.stringify({ question: message }),
+          body: JSON.stringify({
+            question: message,
+            language: selectedLanguage,
+          }),
           headers: { 'Content-Type': 'application/json' },
         }
       )
@@ -82,6 +89,7 @@ export default function ChatWindow({
           role: 'user',
           content: message,
           createdAt: questionMessage?.message?.createdAt,
+          language: selectedLanguage,
         },
       ]
 
@@ -100,6 +108,7 @@ export default function ChatWindow({
             question: message,
             model: selectedModel,
             embeddingModel: selectedEmbeddingModel,
+            language: selectedLanguage,
           }),
           headers: { 'Content-Type': 'application/json' },
         }
@@ -112,6 +121,7 @@ export default function ChatWindow({
           role: 'assistant',
           content: answerMessage?.answer?.content,
           createdAt: answerMessage?.answer?.createdAt,
+          language: selectedLanguage,
         },
       ]
 
@@ -173,6 +183,29 @@ export default function ChatWindow({
           </div>
 
           <div className="flex gap-4">
+            <Select
+              value={selectedLanguage}
+              onValueChange={setSelectedLanguage}
+            >
+              <SelectTrigger className="w-[120px] sm:w-[140px]">
+                <SelectValue placeholder="Select language">
+                  {
+                    SUPPORTED_LANGUAGES.find((l) => l.code === selectedLanguage)
+                      ?.nativeName
+                  }
+                </SelectValue>
+              </SelectTrigger>
+              <SelectContent>
+                <SelectGroup>
+                  {SUPPORTED_LANGUAGES.map((language) => (
+                    <SelectItem key={language.code} value={language.code}>
+                      {language.nativeName}
+                    </SelectItem>
+                  ))}
+                </SelectGroup>
+              </SelectContent>
+            </Select>
+
             <Select
               value={selectedEmbeddingModel}
               onValueChange={setSelectedEmbeddingModel}
@@ -245,9 +278,10 @@ export default function ChatWindow({
                   .trim()
               }
 
-              const products = JSON.parse(raw)
+              // Remove language prefix like [IT] or [FR] etc.
+              raw = raw.replace(/^\[[A-Z]{2}\]\s*/, '')
 
-              console.log(products)
+              const products = JSON.parse(raw)
 
               if (Array.isArray(products)) {
                 if (products.length === 0) {
@@ -295,9 +329,10 @@ export default function ChatWindow({
               } else {
                 content = msg.content
               }
-            } catch {
+            } catch (error) {
+              console.error('Error parsing products:', error)
               content = (
-                <div className="text-muted-foreground">No products found</div>
+                <div className="text-muted-foreground">{msg.content}</div>
               )
             }
 
