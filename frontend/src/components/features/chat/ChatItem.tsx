@@ -54,7 +54,9 @@ export default function ChatItem({
           className="flex-1 justify-start cursor-pointer"
           onClick={() => setSelectedChat(chat)}
         >
-          {chat.title || `Chat ${chat.id.slice(0, 6)}...`}
+          {chat.title.length > 30
+            ? `${chat.title.slice(0, 30)}...`
+            : chat.title || `Chat ${chat.id.slice(0, 6)}...`}
         </Button>
 
         <DropdownMenu>

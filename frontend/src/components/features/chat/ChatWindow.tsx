@@ -165,9 +165,11 @@ export default function ChatWindow({
   return (
     <Card className="w-full sm:w-3/4 flex flex-col justify-between">
       <CardHeader className="px-4">
-        <div className="flex justify-between items-center gap-4">
+        <div className="flex flex-col sm:flex-row justify-between items-center gap-4">
           <div className="text-lg font-semibold">
-            {selectedChat.title || 'Chat'}
+            {selectedChat.title?.length > 50
+              ? `${selectedChat.title.slice(0, 50)}...`
+              : selectedChat.title || 'Chat'}
           </div>
 
           <div className="flex gap-4">
@@ -175,7 +177,7 @@ export default function ChatWindow({
               value={selectedEmbeddingModel}
               onValueChange={setSelectedEmbeddingModel}
             >
-              <SelectTrigger className="w-[180px]">
+              <SelectTrigger className="w-[120px] sm:w-[180px]">
                 <SelectValue placeholder="Select embedding model">
                   {
                     EMBEDDING_MODELS.find(
@@ -196,7 +198,7 @@ export default function ChatWindow({
             </Select>
 
             <Select value={selectedModel} onValueChange={setSelectedModel}>
-              <SelectTrigger className="w-[160px]">
+              <SelectTrigger className="w-[120px] sm:w-[160px]">
                 <SelectValue placeholder="Select a model">
                   {filteredModels.find((m) => m.id === selectedModel)?.name}
                 </SelectValue>
@@ -245,6 +247,8 @@ export default function ChatWindow({
 
               const products = JSON.parse(raw)
 
+              console.log(products)
+
               if (Array.isArray(products)) {
                 if (products.length === 0) {
                   content = (
@@ -265,7 +269,7 @@ export default function ChatWindow({
                         >
                           <img
                             src={
-                              product.image === 'optional_url'
+                              !product.image
                                 ? '/placeholder.webp'
                                 : product.image
                             }

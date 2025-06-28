@@ -68,51 +68,54 @@ export default function Dashboard() {
       <h1 className="text-3xl font-semibold text-gray-800">Dashboard</h1>
 
       <div className="my-10">
-        <h2 className="scroll-m-20 border-b pb-2 text-2xl tracking-tight transition-colors first:mt-0">
-          Products
-        </h2>
-
         {loading ? (
           <Loading />
         ) : (
-          <div className="mt-5 flex flex-wrap gap-4">
-            <Card className="w-full lg:w-[375px]">
-              <CardHeader>
-                <CardTitle>Total</CardTitle>
-                <CardDescription>View and manage all products.</CardDescription>
-              </CardHeader>
+          <>
+            <h2 className="scroll-m-20 border-b pb-2 text-2xl tracking-tight transition-colors first:mt-0">
+              Products
+            </h2>
+            <div className="mt-5 flex flex-wrap gap-4">
+              <Card className="w-full lg:w-[375px]">
+                <CardHeader>
+                  <CardTitle>Total</CardTitle>
+                  <CardDescription>
+                    View and manage all products.
+                  </CardDescription>
+                </CardHeader>
 
-              <CardContent>
-                <p className="text-2xl font-bold">{productData?.total}</p>
-              </CardContent>
-            </Card>
+                <CardContent>
+                  <p className="text-2xl font-bold">{productData?.total}</p>
+                </CardContent>
+              </Card>
 
-            <Card className="w-full lg:w-[375px]">
-              <CardHeader>
-                <CardTitle>Added This Month</CardTitle>
-                <CardDescription>
-                  View products added in the this month.
-                </CardDescription>
-              </CardHeader>
+              <Card className="w-full lg:w-[375px]">
+                <CardHeader>
+                  <CardTitle>Added This Month</CardTitle>
+                  <CardDescription>
+                    View products added in the this month.
+                  </CardDescription>
+                </CardHeader>
 
-              <CardContent>
-                <p className="text-2xl font-bold">{productData?.thisMonth}</p>
-              </CardContent>
-            </Card>
+                <CardContent>
+                  <p className="text-2xl font-bold">{productData?.thisMonth}</p>
+                </CardContent>
+              </Card>
 
-            <Card className="w-full lg:w-[375px]">
-              <CardHeader>
-                <CardTitle>Added This Week</CardTitle>
-                <CardDescription>
-                  View products added in the this week.
-                </CardDescription>
-              </CardHeader>
+              <Card className="w-full lg:w-[375px]">
+                <CardHeader>
+                  <CardTitle>Added This Week</CardTitle>
+                  <CardDescription>
+                    View products added in the this week.
+                  </CardDescription>
+                </CardHeader>
 
-              <CardContent>
-                <p className="text-2xl font-bold">{productData?.thisWeek}</p>
-              </CardContent>
-            </Card>
-          </div>
+                <CardContent>
+                  <p className="text-2xl font-bold">{productData?.thisWeek}</p>
+                </CardContent>
+              </Card>
+            </div>
+          </>
         )}
       </div>
 
