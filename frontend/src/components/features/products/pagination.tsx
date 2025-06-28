@@ -25,7 +25,7 @@ export function DataTablePagination<TData>({
 }: DataTablePaginationProps<TData>) {
   useEffect(() => {
     if (table.getState().pagination.pageSize) {
-      table.setPageSize(5)
+      table.setPageSize(10)
     }
   }, [table])
 
