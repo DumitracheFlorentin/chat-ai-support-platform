@@ -32,19 +32,17 @@ export default function Dashboard() {
         productsCountTotal,
         productsCountThisMonth,
         productsCountThisWeek,
-        chatsCountTotal,
-        chatsCountMessages,
+        chatsCount,
       ] = await Promise.all([
         apiRequest('/products/count/total'),
         apiRequest('/products/count/this-month'),
         apiRequest('/products/count/this-week'),
-        apiRequest('/chats/count/total'),
-        apiRequest('/chats/count/messages'),
+        apiRequest('/chats/count'),
       ])
 
       setChatData({
-        threads: chatsCountTotal?.chats?.length || 0,
-        messages: chatsCountMessages?.count,
+        threads: chatsCount?.chats || 0,
+        messages: chatsCount?.messages || 0,
       })
 
       setProductData({

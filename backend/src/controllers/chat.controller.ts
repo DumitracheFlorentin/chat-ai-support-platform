@@ -4,10 +4,18 @@ import * as messageService from '../services/messages.service'
 import * as chatService from '../services/chat.service'
 import { getLanguageByCode, getDefaultLanguage } from '../config/languages'
 
-export async function getAllMessages(req: Request, res: Response) {
+export async function getAllMessagesAndChats(req: Request, res: Response) {
   try {
-    const messages = await messageService.getAllMessages()
-    res.status(200).json({ success: true, count: messages.length, messages })
+    const [messages, chats] = await Promise.all([
+      messageService.getAllMessages(),
+      chatService.getAllChats(),
+    ])
+
+    res.status(200).json({
+      success: true,
+      chats: chats.length,
+      messages: messages.length,
+    })
   } catch (error) {
     res.status(500).json({ success: false, message: 'Failed to load messages' })
   }
