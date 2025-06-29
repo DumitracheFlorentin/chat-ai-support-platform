@@ -1,6 +1,5 @@
 import * as langchainService from './partners/langchain.service'
-import * as translationService from './partners/translation.service'
-import { getLanguageByCode, getDefaultLanguage } from './languages.service'
+import * as translationService from './partners/google.service'
 import prisma from '../lib/prisma'
 
 export async function askWithContext(
@@ -89,75 +88,6 @@ async function translateProductData(
   } catch (error) {
     console.error('Error translating product data:', error)
     return products // Return original products if translation fails
-  }
-}
-
-export async function generateMultiLanguageResponse(
-  question: string,
-  language: string = 'en',
-  modelId?: string
-): Promise<string> {
-  try {
-    const targetLanguage = getLanguageByCode(language)
-      ? language
-      : getDefaultLanguage().code
-
-    const englishResponse = await langchainService.generateChatCompletion(
-      [
-        {
-          role: 'system',
-          content:
-            'You are an AI assistant for an online electronics store. Please respond in English.',
-        },
-        {
-          role: 'user',
-          content: question,
-        },
-      ],
-      modelId || 'gpt35Turbo'
-    )
-
-    if (targetLanguage === 'en') {
-      return englishResponse
-    }
-
-    const translation = await translationService.translateText({
-      text: englishResponse,
-      targetLanguage,
-      sourceLanguage: 'en',
-    })
-
-    return translation.translatedText
-  } catch (error) {
-    console.error('Error generating multi-language response:', error)
-    throw error
-  }
-}
-
-export async function translateMessage(
-  content: string,
-  targetLanguage: string,
-  sourceLanguage: string = 'en'
-): Promise<string> {
-  try {
-    const translation = await translationService.translateText({
-      text: content,
-      targetLanguage,
-      sourceLanguage,
-    })
-    return translation.translatedText
-  } catch (error) {
-    console.error('Error translating message:', error)
-    return content // Return original content if translation fails
-  }
-}
-
-export async function detectMessageLanguage(content: string): Promise<string> {
-  try {
-    return await translationService.detectLanguage(content)
-  } catch (error) {
-    console.error('Error detecting language:', error)
-    return 'en' // Default to English if detection fails
   }
 }
 

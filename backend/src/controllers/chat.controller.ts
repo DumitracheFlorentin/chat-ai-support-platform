@@ -71,7 +71,6 @@ export async function chatWithAI(req: Request, res: Response) {
       return
     }
 
-    // Validate and set default language
     const targetLanguage =
       language && getLanguageByCode(language)
         ? language

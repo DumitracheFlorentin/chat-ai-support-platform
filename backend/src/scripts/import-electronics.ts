@@ -9,7 +9,6 @@ import {
 import { GoogleGenerativeAIEmbeddings } from '@langchain/google-genai'
 import { OpenAIEmbeddings } from '@langchain/openai'
 
-// Create a single PrismaClient instance to be reused
 const prisma = new PrismaClient({
   log: ['error'],
 })
@@ -27,17 +26,14 @@ interface Product {
   price: number
 }
 
-// Process items in batches with controlled concurrency
 async function processBatch(
   items: Product[],
   batchSize: number,
   processItem: (item: Product) => Promise<void>
 ) {
-  // Process in smaller chunks to control concurrency
   const concurrencyLimit = 10
   for (let i = 0; i < items.length; i += batchSize) {
     const batch = items.slice(i, i + batchSize)
-    // Process chunks of the batch with controlled concurrency
     for (let j = 0; j < batch.length; j += concurrencyLimit) {
       const chunk = batch.slice(j, j + concurrencyLimit)
       await Promise.all(chunk.map(processItem))
@@ -98,7 +94,6 @@ async function importProducts(config: ImportConfig) {
     const index =
       pineconeIndexes[config.indexName as keyof typeof pineconeIndexes]
 
-    // Choose embedding model based on provider
     let embedder: GoogleGenerativeAIEmbeddings | OpenAIEmbeddings
     if (config.provider === 'gemini') {
       embedder = new GoogleGenerativeAIEmbeddings({
@@ -112,7 +107,6 @@ async function importProducts(config: ImportConfig) {
       })
     }
 
-    // Process products in batches of 100 with controlled concurrency
     await processBatch(products, 100, async (product) => {
       try {
         const isDuplicate = await checkDuplicate(
@@ -126,7 +120,6 @@ async function importProducts(config: ImportConfig) {
           return
         }
 
-        // Product doesn't exist in either database, create it in both
         const created = await prisma.product.create({
           data: {
             name: product.name,
@@ -187,7 +180,6 @@ async function checkDuplicate(
   config: ImportConfig,
   embedder: GoogleGenerativeAIEmbeddings | OpenAIEmbeddings
 ) {
-  // Check in relational database
   const existingProduct = await prisma.product.findFirst({
     where: {
       name: product.name,
@@ -196,7 +188,6 @@ async function checkDuplicate(
     },
   })
 
-  // Check in vector database using vector query with high similarity threshold
   const vector = await embedder.embedQuery(
     product.description + ' ' + product.name
   )
@@ -216,13 +207,11 @@ async function checkDuplicate(
     | { name: string; description: string; price: number }
     | undefined
 
-  // Verify exact match of name and description
   const isExactMatch =
     vectorMatch &&
     vectorMetadata?.name === product.name &&
     vectorMetadata?.description === product.description
 
-  // If product exists in relational DB but not in vector DB, add it to vector DB
   if (existingProduct && !isExactMatch) {
     console.log(
       `Product exists in relational DB but not in vector DB: ${product.name}`
@@ -247,7 +236,6 @@ async function checkDuplicate(
     return true
   }
 
-  // If product exists in vector DB but not in relational DB, add it to relational DB
   if (!existingProduct && isExactMatch) {
     console.log(
       `Product exists in vector DB but not in relational DB: ${product.name}`
@@ -263,22 +251,18 @@ async function checkDuplicate(
     return true
   }
 
-  // If product exists in both DBs, it's a duplicate
   if (existingProduct && isExactMatch) {
     console.log(`Product exists in both databases: ${product.name}`)
     return true
   }
 
-  // Product doesn't exist in either database
   return false
 }
 
 async function ensureIndexExists(indexName: string, dimension: number = 1536) {
   try {
-    // List all indexes
     const indexes = await pinecone.listIndexes()
 
-    // Check if our index exists
     const indexExists =
       indexes.indexes?.some(
         (index: { name: string }) => index.name === indexName
@@ -298,7 +282,6 @@ async function ensureIndexExists(indexName: string, dimension: number = 1536) {
         },
       })
 
-      // Wait for index to be ready
       console.log('Waiting for index to be ready...')
       await new Promise((resolve) => setTimeout(resolve, 5000))
     } else {
