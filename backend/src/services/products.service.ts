@@ -1,6 +1,6 @@
 import * as productsInterfaces from '../interfaces/products.interfaces'
-import * as openaiServices from './partners/openai.service'
-import { pinecone } from './partners/pinecone.service'
+import * as langchainService from './partners/langchain.service'
+import { pineconeIndexes } from './partners/pinecone.service'
 import prisma from '../lib/prisma'
 
 export async function createProduct(
@@ -9,21 +9,64 @@ export async function createProduct(
   const product = await prisma.product.create({ data })
 
   const combinedText = `${product.name} ${product.description}`
-  const vector = await openaiServices.generateEmbedding(combinedText)
 
-  const index = pinecone.index(process.env.PINECONE_INDEX_NAME!)
+  // Generate embeddings for all models
+  const ada002Vector = await langchainService.generateEmbedding(
+    combinedText,
+    'ada002'
+  )
+  const embedding3LargeVector = await langchainService.generateEmbedding(
+    combinedText,
+    'embedding3Large'
+  )
+  const gemini001Vector = await langchainService.generateEmbedding(
+    combinedText,
+    'gemini001'
+  )
 
-  await index.upsert([
-    {
-      id: product.id.toString(),
-      values: vector,
-      metadata: {
-        name: product.name,
-        description: product.description,
-        price: product.price ?? 0,
+  // Save to all Pinecone databases
+  await Promise.all([
+    // Save to ada002 database
+    pineconeIndexes.ada002.upsert([
+      {
+        id: product.id.toString(),
+        values: ada002Vector,
+        metadata: {
+          name: product.name,
+          description: product.description,
+          price: product.price ?? 0,
+        },
       },
-    },
+    ]),
+
+    // Save to embedding3Large database
+    pineconeIndexes.embedding3Large.upsert([
+      {
+        id: product.id.toString(),
+        values: embedding3LargeVector,
+        metadata: {
+          name: product.name,
+          description: product.description,
+          price: product.price ?? 0,
+        },
+      },
+    ]),
+
+    // Save to gemini001 database
+    pineconeIndexes.gemini001.upsert([
+      {
+        id: product.id.toString(),
+        values: gemini001Vector,
+        metadata: {
+          name: product.name,
+          description: product.description,
+          price: product.price ?? 0,
+        },
+      },
+    ]),
   ])
+
+  console.log('Product created and saved to Pinecone')
 
   return product
 }
