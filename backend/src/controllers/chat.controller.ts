@@ -2,7 +2,10 @@ import { Request, Response } from 'express'
 
 import * as messageService from '../services/messages.service'
 import * as chatService from '../services/chat.service'
-import { getLanguageByCode, getDefaultLanguage } from '../config/languages'
+import {
+  getLanguageByCode,
+  getDefaultLanguage,
+} from '../services/languages.service'
 
 export async function getAllMessagesAndChats(req: Request, res: Response) {
   try {
@@ -45,16 +48,6 @@ export async function createChat(req: Request, res: Response) {
     res.status(201).json({ success: true, chat })
   } catch (err) {
     res.status(500).json({ success: false, message: 'Failed to create chat' })
-  }
-}
-
-export async function getMessagesByChatId(req: Request, res: Response) {
-  try {
-    const { id } = req.params
-    const messages = await chatService.getMessagesByChatId(id)
-    res.status(200).json({ success: true, messages })
-  } catch (err) {
-    res.status(500).json({ success: false, message: 'Failed to load messages' })
   }
 }
 

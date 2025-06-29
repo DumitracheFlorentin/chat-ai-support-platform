@@ -1,5 +1,6 @@
 import { Pinecone } from '@pinecone-database/pinecone'
 import dotenv from 'dotenv'
+import * as langchainService from './langchain.service'
 
 dotenv.config()
 
@@ -33,7 +34,6 @@ export const pineconeIndexes = {
   gemini001: pinecone.Index(process.env.PINECONE_INDEX_GEMINI001),
 }
 
-// Verify indexes are accessible
 Promise.all([
   pineconeIndexes.ada002.describeIndexStats(),
   pineconeIndexes.embedding3Large.describeIndexStats(),
@@ -51,3 +51,75 @@ Promise.all([
   })
 
 export type PineconeIndexType = keyof typeof pineconeIndexes
+
+export async function deleteProductFromPinecone(
+  productId: string | number
+): Promise<void> {
+  const id = productId.toString()
+
+  console.log(`Attempting to delete product ${id} from all Pinecone indexes`)
+
+  try {
+    await Promise.all([
+      pineconeIndexes.ada002.deleteOne(id),
+      pineconeIndexes.embedding3Large.deleteOne(id),
+      pineconeIndexes.gemini001.deleteOne(id),
+    ])
+
+    console.log(`Product ${id} deleted from all Pinecone indexes`)
+  } catch (error) {
+    console.error(`Error deleting product ${id} from Pinecone:`, error)
+    throw error
+  }
+}
+
+export async function updateProductInPinecone(
+  productId: string | number,
+  name: string,
+  description: string,
+  price: number
+): Promise<void> {
+  const id = productId.toString()
+
+  console.log(`Attempting to update product ${id} in all Pinecone indexes`)
+
+  const combinedText = `${name} ${description}`
+
+  try {
+    const [ada002Vector, embedding3LargeVector, gemini001Vector] =
+      await Promise.all([
+        langchainService.generateEmbedding(combinedText, 'ada002'),
+        langchainService.generateEmbedding(combinedText, 'embedding3Large'),
+        langchainService.generateEmbedding(combinedText, 'gemini001'),
+      ])
+
+    await Promise.all([
+      pineconeIndexes.ada002.upsert([
+        {
+          id,
+          values: ada002Vector,
+          metadata: { name, description, price },
+        },
+      ]),
+      pineconeIndexes.embedding3Large.upsert([
+        {
+          id,
+          values: embedding3LargeVector,
+          metadata: { name, description, price },
+        },
+      ]),
+      pineconeIndexes.gemini001.upsert([
+        {
+          id,
+          values: gemini001Vector,
+          metadata: { name, description, price },
+        },
+      ]),
+    ])
+
+    console.log(`Product ${id} updated in all Pinecone indexes`)
+  } catch (error) {
+    console.error(`Error updating product ${id} in Pinecone:`, error)
+    throw error
+  }
+}

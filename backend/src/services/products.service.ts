@@ -1,6 +1,10 @@
 import * as productsInterfaces from '../interfaces/products.interfaces'
 import * as langchainService from './partners/langchain.service'
-import { pineconeIndexes } from './partners/pinecone.service'
+import {
+  pineconeIndexes,
+  deleteProductFromPinecone,
+  updateProductInPinecone,
+} from './partners/pinecone.service'
 import prisma from '../lib/prisma'
 
 export async function createProduct(
@@ -10,7 +14,6 @@ export async function createProduct(
 
   const combinedText = `${product.name} ${product.description}`
 
-  // Generate embeddings for all models
   const ada002Vector = await langchainService.generateEmbedding(
     combinedText,
     'ada002'
@@ -24,7 +27,6 @@ export async function createProduct(
     'gemini001'
   )
 
-  // Save to all Pinecone databases
   await Promise.all([
     // Save to ada002 database
     pineconeIndexes.ada002.upsert([
@@ -126,16 +128,41 @@ export async function updateProduct(
   id: number,
   data: productsInterfaces.UpdateProductDTO
 ): Promise<productsInterfaces.Product> {
-  return prisma.product.update({
+  console.log(`Updating product with database ID: ${id}`)
+
+  const updatedProduct = await prisma.product.update({
     where: { id },
     data,
   })
+
+  console.log(
+    `Product updated in database, now updating in Pinecone with ID: ${updatedProduct.id}`
+  )
+
+  await updateProductInPinecone(
+    updatedProduct.id,
+    updatedProduct.name,
+    updatedProduct.description,
+    updatedProduct.price ?? 0
+  )
+
+  return updatedProduct
 }
 
 export async function deleteProduct(
   id: number
 ): Promise<productsInterfaces.Product> {
-  return prisma.product.delete({
+  console.log(`Deleting product with database ID: ${id}`)
+
+  const product = await prisma.product.delete({
     where: { id },
   })
+
+  console.log(
+    `Product deleted from database, now deleting from Pinecone with ID: ${product.id}`
+  )
+
+  await deleteProductFromPinecone(product.id)
+
+  return product
 }

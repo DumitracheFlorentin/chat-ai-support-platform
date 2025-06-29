@@ -6,7 +6,7 @@ export interface Language {
   isRTL: boolean
 }
 
-export const SUPPORTED_LANGUAGES: Language[] = [
+const SUPPORTED_LANGUAGES: Language[] = [
   {
     code: 'en',
     name: 'English',
@@ -71,8 +71,4 @@ export const getLanguageByCode = (code: string): Language | undefined => {
 
 export const getDefaultLanguage = (): Language => {
   return SUPPORTED_LANGUAGES[0] // English
-}
-
-export const isLanguageSupported = (code: string): boolean => {
-  return SUPPORTED_LANGUAGES.some((lang) => lang.code === code)
 }

@@ -1,5 +1,5 @@
 import dotenv from 'dotenv'
-import { getLanguageByCode, getDefaultLanguage } from '../../config/languages'
+import { getLanguageByCode } from '../languages.service'
 
 dotenv.config()
 
@@ -15,23 +15,19 @@ export interface TranslationResponse {
   targetLanguage: string
 }
 
-// Enhanced Google Translate API implementation
 async function googleTranslate(
   text: string,
   targetLang: string,
   sourceLang: string = 'en'
 ): Promise<string> {
   try {
-    // If target language is English, return original text
     if (targetLang === 'en') {
       return text
     }
 
-    // Check if we have a Google Translate API key
     const apiKey = process.env.GOOGLE_TRANSLATE_API_KEY
 
     if (apiKey) {
-      // Use Google Translate API
       const url = `https://translation.googleapis.com/language/translate/v2?key=${apiKey}`
       const response = await fetch(url, {
         method: 'POST',
@@ -89,7 +85,6 @@ export async function translateText(
   try {
     const { text, targetLanguage, sourceLanguage = 'en' } = request
 
-    // If target language is English, return original text
     if (targetLanguage === 'en') {
       return {
         translatedText: text,
@@ -98,7 +93,6 @@ export async function translateText(
       }
     }
 
-    // Validate target language
     const language = getLanguageByCode(targetLanguage)
     if (!language) {
       console.warn(
@@ -111,7 +105,6 @@ export async function translateText(
       }
     }
 
-    // Translate the text
     const translatedText = await googleTranslate(
       text,
       targetLanguage,
@@ -126,7 +119,6 @@ export async function translateText(
   } catch (error) {
     console.error('Translation error:', error)
 
-    // Fallback to original text if translation fails
     return {
       translatedText: request.text,
       sourceLanguage: request.sourceLanguage || 'en',
@@ -137,11 +129,9 @@ export async function translateText(
 
 export async function detectLanguage(text: string): Promise<string> {
   try {
-    // Check if we have a Google Translate API key for language detection
     const apiKey = process.env.GOOGLE_TRANSLATE_API_KEY
 
     if (apiKey) {
-      // Use Google Translate API for language detection
       const url = `https://translation.googleapis.com/language/translate/v2/detect?key=${apiKey}`
       const response = await fetch(url, {
         method: 'POST',

@@ -59,14 +59,6 @@ export const SUPPORTED_LANGUAGES: Language[] = [
   },
 ]
 
-export const getLanguageByCode = (code: string): Language | undefined => {
-  return SUPPORTED_LANGUAGES.find((lang) => lang.code === code)
-}
-
 export const getDefaultLanguage = (): Language => {
   return SUPPORTED_LANGUAGES[0] // English
-}
-
-export const isLanguageSupported = (code: string): boolean => {
-  return SUPPORTED_LANGUAGES.some((lang) => lang.code === code)
 }

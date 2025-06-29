@@ -1,6 +1,6 @@
 import * as langchainService from './partners/langchain.service'
 import * as translationService from './partners/translation.service'
-import { getLanguageByCode, getDefaultLanguage } from '../config/languages'
+import { getLanguageByCode, getDefaultLanguage } from './languages.service'
 import prisma from '../lib/prisma'
 
 export async function askWithContext(
@@ -9,19 +9,16 @@ export async function askWithContext(
   embeddingModel: langchainService.EmbeddingModelType = 'ada002',
   language: string = 'en'
 ): Promise<string> {
-  // Always use existing LangChain service for context retrieval and response generation
   const englishResponse = await langchainService.askWithContext(
     question,
     modelId,
     embeddingModel
   )
 
-  // If the target language is English, return the response as is
   if (language === 'en') {
     return englishResponse
   }
 
-  // Check if the response contains JSON with products
   try {
     const cleanedResponse = englishResponse.trim()
     let jsonStart = cleanedResponse.indexOf('[')
@@ -32,14 +29,12 @@ export async function askWithContext(
       const products = JSON.parse(jsonString)
 
       if (Array.isArray(products) && products.length > 0) {
-        // Translate product data
         const translatedProducts = await translateProductData(
           products,
           language
         )
         const translatedJson = JSON.stringify(translatedProducts, null, 2)
 
-        // Replace the original JSON with translated JSON
         const beforeJson = cleanedResponse.substring(0, jsonStart)
         const afterJson = cleanedResponse.substring(jsonEnd + 1)
 
@@ -50,7 +45,6 @@ export async function askWithContext(
     console.log('Not a product JSON response, translating as regular text')
   }
 
-  // Translate the response to the target language
   const translation = await translationService.translateText({
     text: englishResponse,
     targetLanguage: language,
@@ -69,7 +63,6 @@ async function translateProductData(
       products.map(async (product) => {
         const translatedProduct = { ...product }
 
-        // Translate product name
         if (product.name) {
           const nameTranslation = await translationService.translateText({
             text: product.name,
@@ -79,7 +72,6 @@ async function translateProductData(
           translatedProduct.name = nameTranslation.translatedText
         }
 
-        // Translate product description
         if (product.description) {
           const descTranslation = await translationService.translateText({
             text: product.description,
@@ -110,7 +102,6 @@ export async function generateMultiLanguageResponse(
       ? language
       : getDefaultLanguage().code
 
-    // Use the existing LangChain service to generate the response in English
     const englishResponse = await langchainService.generateChatCompletion(
       [
         {
@@ -126,12 +117,10 @@ export async function generateMultiLanguageResponse(
       modelId || 'gpt35Turbo'
     )
 
-    // If target language is English, return as is
     if (targetLanguage === 'en') {
       return englishResponse
     }
 
-    // Translate to target language
     const translation = await translationService.translateText({
       text: englishResponse,
       targetLanguage,
@@ -188,13 +177,6 @@ export async function getAllChats() {
         orderBy: { createdAt: 'asc' },
       },
     },
-  })
-}
-
-export async function getMessagesByChatId(chatId: string) {
-  return prisma.message.findMany({
-    where: { chatId },
-    orderBy: { createdAt: 'asc' },
   })
 }
 

@@ -1,9 +1,78 @@
+import { ChatOpenAI } from '@langchain/openai'
+import { OpenAIEmbeddings } from '@langchain/openai'
 import {
-  getChatModel,
-  getEmbeddingModel,
-} from '../../config/ai/langchain.config'
+  ChatGoogleGenerativeAI,
+  GoogleGenerativeAIEmbeddings,
+} from '@langchain/google-genai'
 import { HumanMessage, SystemMessage } from '@langchain/core/messages'
 import { pineconeIndexes } from './pinecone.service'
+import dotenv from 'dotenv'
+
+dotenv.config()
+
+if (!process.env.OPENAI_API_KEY) {
+  throw new Error('OPENAI_API_KEY is not set in environment variables')
+}
+if (!process.env.GOOGLE_API_KEY) {
+  throw new Error('GOOGLE_API_KEY is not set in environment variables')
+}
+
+const chatModels = {
+  gpt35Turbo: new ChatOpenAI({
+    modelName: 'gpt-3.5-turbo',
+    temperature: 0.7,
+    openAIApiKey: process.env.OPENAI_API_KEY,
+  }),
+
+  gpt4: new ChatOpenAI({
+    modelName: 'gpt-4',
+    temperature: 0.7,
+    openAIApiKey: process.env.OPENAI_API_KEY,
+  }),
+
+  gpt4Turbo: new ChatOpenAI({
+    modelName: 'gpt-4-turbo-preview',
+    temperature: 0.7,
+    openAIApiKey: process.env.OPENAI_API_KEY,
+  }),
+
+  gpt4o: new ChatOpenAI({
+    modelName: 'gpt-4o',
+    temperature: 0.7,
+    openAIApiKey: process.env.OPENAI_API_KEY,
+  }),
+
+  geminiPro: new ChatGoogleGenerativeAI({
+    model: 'gemini-1.5-pro',
+    apiKey: process.env.GOOGLE_API_KEY,
+    temperature: 0.7,
+  }),
+}
+
+const embeddingModels = {
+  ada002: new OpenAIEmbeddings({
+    modelName: 'text-embedding-ada-002',
+    openAIApiKey: process.env.OPENAI_API_KEY,
+  }),
+
+  embedding3Large: new OpenAIEmbeddings({
+    modelName: 'text-embedding-3-large',
+    openAIApiKey: process.env.OPENAI_API_KEY,
+  }),
+
+  gemini001: new GoogleGenerativeAIEmbeddings({
+    modelName: 'models/embedding-001',
+    apiKey: process.env.GOOGLE_API_KEY,
+  }),
+}
+
+const getChatModel = (modelName: keyof typeof chatModels) => {
+  return chatModels[modelName]
+}
+
+const getEmbeddingModel = (modelName: keyof typeof embeddingModels) => {
+  return embeddingModels[modelName]
+}
 
 export type EmbeddingModelType = 'ada002' | 'embedding3Large' | 'gemini001'
 
@@ -44,15 +113,12 @@ export async function askWithContext(
     embeddingModel,
   })
 
-  // Generate embedding using LangChain
   const embedding = await generateEmbedding(question, embeddingModel)
   console.log('Generated embedding length:', embedding.length)
 
-  // Get the appropriate Pinecone index based on the embedding model
   const pineconeIndex = pineconeIndexes[embeddingModel]
   console.log('Using Pinecone index:', embeddingModel)
 
-  // Query Pinecone
   const queryResponse = await pineconeIndex.query({
     vector: embedding,
     topK: 5,
