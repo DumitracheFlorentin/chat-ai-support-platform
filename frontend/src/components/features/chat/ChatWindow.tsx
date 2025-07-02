@@ -310,7 +310,7 @@ export default function ChatWindow({
                             alt={product.name}
                             className="w-full h-30 object-cover rounded-md"
                           />
-                          <div className="flex justify-between gap-4 items-center w-full">
+                          <div className="flex flex-col gap-2 w-full">
                             <h3 className="text-sm font-medium">
                               {product.name}
                             </h3>
